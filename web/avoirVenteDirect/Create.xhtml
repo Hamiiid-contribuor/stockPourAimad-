@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvoirVenteDirectCreateDlg" widgetVar="AvoirVenteDirectCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAvoirVenteDirectTitle}">
+            <h:form id="AvoirVenteDirectCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avoirVenteDirectController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAvoirVenteDirectLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{avoirVenteDirectController.selected.userTraceForTransaction}" >
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAvoirVenteDirectLabel_dateAvoirVenteDirect}" for="dateAvoirVenteDirect" />
+                        <p:calendar id="dateAvoirVenteDirect" pattern="MM/dd/yyyy" value="#{avoirVenteDirectController.selected.dateAvoirVenteDirect}" title="#{bundle.EditAvoirVenteDirectTitle_dateAvoirVenteDirect}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateAvoirVenteDirectLabel_message}" for="message" />
+                        <p:inputText id="message" value="#{avoirVenteDirectController.selected.message}" title="#{bundle.CreateAvoirVenteDirectTitle_message}" />
+                        <p:outputLabel value="#{bundle.CreateAvoirVenteDirectLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{avoirVenteDirectController.selected.montant}" title="#{bundle.CreateAvoirVenteDirectTitle_montant}" />
+                        <p:outputLabel value="#{bundle.CreateAvoirVenteDirectLabel_venteDirect}" for="venteDirect" />
+                        <p:selectOneMenu id="venteDirect" value="#{avoirVenteDirectController.selected.venteDirect}" >
+                            <f:selectItems value="#{venteDirectController.itemsAvailableSelectOne}"
+                                           var="venteDirectItem"
+                                           itemValue="#{venteDirectItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAvoirVenteDirectLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{avoirVenteDirectController.selected.id}" title="#{bundle.CreateAvoirVenteDirectTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avoirVenteDirectController.create}" value="#{bundle.Save}" update="display,:AvoirVenteDirectListForm:datalist,:growl" oncomplete="handleSubmit(args,'AvoirVenteDirectCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AvoirVenteDirectCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

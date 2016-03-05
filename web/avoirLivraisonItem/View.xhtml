@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvoirLivraisonItemViewDlg" widgetVar="AvoirLivraisonItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAvoirLivraisonItemTitle}">
+            <h:form id="AvoirLivraisonItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avoirLivraisonItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAvoirLivraisonItemLabel_stock}"/>
+                        <h:outputText value="#{avoirLivraisonItemController.selected.stock}" title="#{bundle.ViewAvoirLivraisonItemTitle_stock}"/>
+                        <h:outputText value="#{bundle.ViewAvoirLivraisonItemLabel_avoirLivraison}"/>
+                        <h:outputText value="#{avoirLivraisonItemController.selected.avoirLivraison}" title="#{bundle.ViewAvoirLivraisonItemTitle_avoirLivraison}"/>
+                        <h:outputText value="#{bundle.ViewAvoirLivraisonItemLabel_produit}"/>
+                        <h:outputText value="#{avoirLivraisonItemController.selected.produit}" title="#{bundle.ViewAvoirLivraisonItemTitle_produit}"/>
+                        <h:outputText value="#{bundle.ViewAvoirLivraisonItemLabel_qte}"/>
+                        <h:outputText value="#{avoirLivraisonItemController.selected.qte}" title="#{bundle.ViewAvoirLivraisonItemTitle_qte}"/>
+                        <h:outputText value="#{bundle.ViewAvoirLivraisonItemLabel_id}"/>
+                        <h:outputText value="#{avoirLivraisonItemController.selected.id}" title="#{bundle.ViewAvoirLivraisonItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AvoirLivraisonItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

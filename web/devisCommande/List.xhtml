@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDevisCommandeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DevisCommandeListForm">
+                <p:panel header="#{bundle.ListDevisCommandeTitle}">
+                    <p:dataTable id="datalist" value="#{devisCommandeController.items}" var="item"
+                                 selectionMode="single" selection="#{devisCommandeController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_userTraceForTransaction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userTraceForTransaction}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_responsable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responsable}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_tva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_commentaire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.commentaire}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_dateDevisCommande}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDevisCommande}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_montantTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montantTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_fournisseur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fournisseur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_abonne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.abonne}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_projet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.projet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDevisCommandeTitle_commande}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.commande}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{devisCommandeController.prepareCreate}" update=":DevisCommandeCreateForm" oncomplete="PF('DevisCommandeCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DevisCommandeViewForm" oncomplete="PF('DevisCommandeViewDialog').show()" disabled="#{empty devisCommandeController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DevisCommandeEditForm" oncomplete="PF('DevisCommandeEditDialog').show()" disabled="#{empty devisCommandeController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{devisCommandeController.destroy}" update=":growl,datalist" disabled="#{empty devisCommandeController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

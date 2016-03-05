@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DemmandeCreateDlg" widgetVar="DemmandeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDemmandeTitle}">
+            <h:form id="DemmandeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demmandeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{demmandeController.selected.userTraceForTransaction}" >
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_paiementEffetEnCour}" for="paiementEffetEnCour" />
+                        <p:inputText id="paiementEffetEnCour" value="#{demmandeController.selected.paiementEffetEnCour}" title="#{bundle.CreateDemmandeTitle_paiementEffetEnCour}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{demmandeController.selected.tva}" title="#{bundle.CreateDemmandeTitle_tva}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{demmandeController.selected.responsable}" >
+                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_projet}" for="projet" />
+                        <p:selectOneMenu id="projet" value="#{demmandeController.selected.projet}" >
+                            <f:selectItems value="#{projetController.itemsAvailableSelectOne}"
+                                           var="projetItem"
+                                           itemValue="#{projetItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_abonne}" for="abonne" />
+                        <p:selectOneMenu id="abonne" value="#{demmandeController.selected.abonne}" >
+                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
+                                           var="abonneItem"
+                                           itemValue="#{abonneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_dateDemmande}" for="dateDemmande" />
+                        <p:calendar id="dateDemmande" pattern="MM/dd/yyyy" value="#{demmandeController.selected.dateDemmande}" title="#{bundle.EditDemmandeTitle_dateDemmande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_paiement}" for="paiement" />
+                        <p:inputText id="paiement" value="#{demmandeController.selected.paiement}" title="#{bundle.CreateDemmandeTitle_paiement}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_etatLivraison}" for="etatLivraison" />
+                        <p:selectBooleanCheckbox id="etatLivraison" value="#{demmandeController.selected.etatLivraison}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_client}" for="client" />
+                        <p:selectOneMenu id="client" value="#{demmandeController.selected.client}" >
+                            <f:selectItems value="#{clientController.itemsAvailableSelectOne}"
+                                           var="clientItem"
+                                           itemValue="#{clientItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demmandeController.selected.id}" title="#{bundle.CreateDemmandeTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{demmandeController.selected.commentaire}" title="#{bundle.CreateDemmandeTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_dateCommande}" for="dateCommande" />
+                        <p:inputText id="dateCommande" value="#{demmandeController.selected.dateCommande}" title="#{bundle.CreateDemmandeTitle_dateCommande}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_dateEchance}" for="dateEchance" />
+                        <p:calendar id="dateEchance" pattern="MM/dd/yyyy" value="#{demmandeController.selected.dateEchance}" title="#{bundle.EditDemmandeTitle_dateEchance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_montantTotal}" for="montantTotal" />
+                        <p:inputText id="montantTotal" value="#{demmandeController.selected.montantTotal}" title="#{bundle.CreateDemmandeTitle_montantTotal}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeLabel_modePaiement}" for="modePaiement" />
+                        <p:inputText id="modePaiement" value="#{demmandeController.selected.modePaiement}" title="#{bundle.CreateDemmandeTitle_modePaiement}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demmandeController.create}" value="#{bundle.Save}" update="display,:DemmandeListForm:datalist,:growl" oncomplete="handleSubmit(args,'DemmandeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemmandeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCommandeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            #{commandeController.prepareCreate()}
+            <h:form id="CommandeCreateForm">
+                
+                <p:fieldset legend="Infos Commande" style="margin-bottom:20px">
+                    <p:panelGrid columns="12">
+                        <p:outputLabel value="#{bundle.Reference}" for="refPriffix" style="display:block;width:15px"/>
+                        <p:inputText id="refPriffix" style="display:block;width:40px" value="#{commandeController.selected.referencePriffix}" title="#{bundle.Reference}" />
+                        <p:inputText id="refIndex" style="display:block;width:40px" value="#{commandeController.selected.referenceIndex}" title="#{bundle.Reference}" />
+                        <p:inputText id="refSuffix" style="display:block;width:40px" value="#{commandeController.selected.referenceSuffix}" title="#{bundle.Reference}" />
+
+                        <p:commandButton  actionListener="#{commandeController.generateReferenceIndexCommande()}" 
+                                          value="#{bundle.CreateCommandeTitle_generate}" update="refIndex" />
+                        <p:outputLabel style="display:block;width:40px" value="#{bundle.CreateCommandeLabel_projet}" for="projet" />
+                        <p:selectOneMenu id="projet" value="#{commandeController.selected.projet}" style="display:block;width:100px" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{projetController.findProjetByAbonne()}"
+                                           var="projetItem"
+                                           itemValue="#{projetItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel style="display:block;width:40px"  value="#{bundle.CreateCommandeLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{commandeController.selected.tva}" title="#{bundle.CreateCommandeTitle_tva}" />
+
+                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{commandeController.selected.responsable}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{responsableController.findByAbonne()}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                     
+                    </p:panelGrid>
+                    <p:panelGrid columns="9">
+                        <p:outputLabel style="display:block;width:70px"  value="#{bundle.CreateCommandeLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{commandeController.selected.commentaire}" title="#{bundle.CreateCommandeTitle_commentaire}" />
+
+                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateCommandeLabel_fournisseur}" for="fournisseur" />
+                        <p:selectOneMenu id="fournisseur" value="#{commandeController.selected.fournisseur}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{fournisseurController.findFournisseurByAbonne(userController.selected.abonne,0)}"
+                                           var="fournisseurItem"
+                                           itemValue="#{fournisseurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.DateCommande}" style="display:block;width:95px" for="dateCommande" />
+                        <p:calendar id="dateCommande" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.selected.dateCommande}" title="#{bundle.DateCommande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.DateEcheance}" style="display:block;width:85px" for="dateEcheance" />
+                        <p:calendar id="dateEcheance" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.selected.dateEchance}" title="#{bundle.DateEcheance}"  showOn="button"/>
+                    </p:panelGrid>
+                </p:fieldset>
+                <p:fieldset legend="Infos Ligne de Commande" style="margin-bottom:20px">
+                    <p:panelGrid columns="12">
+                        <p:outputLabel value="#{bundle.Famille}" for="famille" />
+                        <p:selectOneMenu id="famille" value="#{commandeController.selectedFamille}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{familleController.findFamilleByAbonne(userController.selected.abonne)}"
+                                           var="familleItem"
+                                           itemValue="#{familleItem}" />
+                            <p:ajax process="famille" listener="#{commandeController.findProduitByFamille(0)}" update="produit" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.ViewAchatDirectItemTitle_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{commandeController.selectedProduit}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{commandeController.produits}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}" itemLabel="#{produitItem.libelle} #{produitItem.uniteMesure.nom}(qte=#{produitItem.qteGlobalStock}) "/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateCommandeItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{commandeController.commandItem.prix}" title="#{bundle.CreateCommandeItemTitle_prix}" />
+
+                        <p:outputLabel value="#{bundle.CreateCommandeItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{commandeController.commandItem.qte}" title="#{bundle.CreateCommandeItemTitle_qte}" />
+
+                        <p:commandButton actionListener="#{commandeController.createCommandeItem}"
+                                         value="Valider" 
+                                         update=":CommandeItemListForm:datalist,:growl" />
+                        <p:commandButton actionListener="#{commandeController.createCommande()}"
+                                         value="Finir"
+                                         update=":growl,:CommandeItemListForm:datalist,:CommandeCreateForm" />
+                    </p:panelGrid>
+                </p:fieldset>
+            </h:form>
+
+            <p:fieldset legend="Les Produits de la Commande" style="margin-bottom:20px">
+                <h:form id="CommandeItemListForm">
+                    <p:dataTable id="datalist" value="#{commandeController.selected.commandeItems}" var="item"
+                                 selectionMode="single" selection="#{commandeController.commandItem}"
+                                 paginator="true"
+                                 rowKey="#{item.produit.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCommandeItemTitle_produit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.Famille}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.famille.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCommandeItemTitle_prix}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCommandeItemTitle_qte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qte}"/>
+                        </p:column>
+                       
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-trash" actionListener="#{commandeController.deleteCommandeItem(item)}"
+                                             update=":CommandeItemListForm:datalist"  style="width:30px;height:20px"/>
+
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <h:outputText value="#{bundle.CreateCommandeLabel_montantTotal}  "/>
+                            <h:outputText id="montantTotal" value="#{commandeController.selected.montantTotal}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </p:fieldset>
+        </ui:define>
+
+    </ui:composition>
+</html>

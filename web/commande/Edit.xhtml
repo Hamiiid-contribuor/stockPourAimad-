@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CommandeEditDlg" widgetVar="CommandeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCommandeTitle}">
+            <h:form id="CommandeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{commandeController.selected != null}">
+                        <f:facet name="header">
+                        <p:outputLabel value="#{bundle.Reference}" for="refPriffix" />
+                        <p:inputText id="refPriffix"  value="#{commandeController.selected.referencePriffix}" title="#{bundle.Reference}" />
+                        <p:inputText id="refIndex" value="#{commandeController.selected.referenceIndex}" title="#{bundle.Reference}" />
+                        <p:inputText id="refSuffix" value="#{commandeController.selected.referenceSuffix}" title="#{bundle.Reference}" />
+
+                        <p:commandButton  actionListener="#{commandeController.generateReferenceIndexCommande()}" 
+                                          value="#{bundle.CreateCommandeTitle_generate}" update="refIndex" />
+                        </f:facet>
+                        
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{commandeController.selected.responsable}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{commandeController.selected.tva}" title="#{bundle.EditCommandeTitle_tva}" />
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_projet}" for="projet" />
+                        <p:selectOneMenu id="projet" value="#{commandeController.selected.projet}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{projetController.itemsAvailableSelectOne}"
+                                           var="projetItem"
+                                           itemValue="#{projetItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{commandeController.selected.commentaire}" title="#{bundle.EditCommandeTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_dateCommande}" for="dateCommande" />
+                        <p:calendar id="dateCommande" pattern="MM/dd/yyyy" value="#{commandeController.selected.dateCommande}" title="#{bundle.EditCommandeTitle_dateCommande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_dateEchance}" for="dateEchance" />
+                        <p:calendar id="dateEchance" pattern="MM/dd/yyyy" value="#{commandeController.selected.dateEchance}" title="#{bundle.EditCommandeTitle_dateEchance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCommandeLabel_fournisseur}" for="fournisseur" />
+                        <p:selectOneMenu id="fournisseur" value="#{commandeController.selected.fournisseur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fournisseurController.itemsAvailableSelectOne}"
+                                           var="fournisseurItem"
+                                           itemValue="#{fournisseurItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{commandeController.update}" value="#{bundle.Save}" update=":PaiementCommandeListForm:datalist, :CommandeItemListForm:datalist, :ReceptionListForm:datalist, :ReceptionItemListForm:datalist, :CommandeListForm:datalist, :growl" oncomplete="handleSubmit(args, 'CommandeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CommandeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

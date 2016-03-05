@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClientViewDlg" widgetVar="ClientViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClientTitle}">
+            <h:form id="ClientViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clientController.selected != null}">
+                        <h:outputText value="#{bundle.ViewClientLabel_nom}"/>
+                        <h:outputText value="#{clientController.selected.nom}" title="#{bundle.ViewClientTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_adresse}"/>
+                        <h:outputText value="#{clientController.selected.adresse}" title="#{bundle.ViewClientTitle_adresse}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_email}"/>
+                        <h:outputText value="#{clientController.selected.email}" title="#{bundle.ViewClientTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_tel}"/>
+                        <h:outputText value="#{clientController.selected.tel}" title="#{bundle.ViewClientTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_creance}"/>
+                        <h:outputText value="#{clientController.selected.creance}" title="#{bundle.ViewClientTitle_creance}"/>
+                        <p:outputLabel value="#{bundle.CreateClientLabel_bloquer}" for="bloquer" />
+                        <p:selectBooleanCheckbox id="bloquer" value="#{clientController.selected.bloquer}" disabled="true" />
+                        <h:outputText value="#{bundle.ViewClientLabel_detailBloquage}"/>
+                        <h:outputText value="#{clientController.selected.detailBloquage}" title="#{bundle.ViewClientTitle_detailBloquage}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_description}"/>
+                        <h:outputText value="#{clientController.selected.description}" title="#{bundle.ViewClientTitle_description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ClientViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

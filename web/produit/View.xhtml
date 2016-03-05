@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProduitViewDlg" widgetVar="ProduitViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProduitTitle}">
+            <h:form id="ProduitViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{produitController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProduitLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{produitController.selected.userTraceForTransaction}" title="#{bundle.ViewProduitTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_uniteMesure}"/>
+                        <h:outputText value="#{produitController.selected.uniteMesure}" title="#{bundle.ViewProduitTitle_uniteMesure}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_libelle}"/>
+                        <h:outputText value="#{produitController.selected.libelle}" title="#{bundle.ViewProduitTitle_libelle}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_reference}"/>
+                        <h:outputText value="#{produitController.selected.reference}" title="#{bundle.ViewProduitTitle_reference}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_qteGlobalStock}"/>
+                        <h:outputText value="#{produitController.selected.qteGlobalStock}" title="#{bundle.ViewProduitTitle_qteGlobalStock}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_famille}"/>
+                        <h:outputText value="#{produitController.selected.famille}" title="#{bundle.ViewProduitTitle_famille}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_abonne}"/>
+                        <h:outputText value="#{produitController.selected.abonne}" title="#{bundle.ViewProduitTitle_abonne}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_seuilAlert}"/>
+                        <h:outputText value="#{produitController.selected.seuilAlert}" title="#{bundle.ViewProduitTitle_seuilAlert}"/>
+                        <h:outputText value="#{bundle.ViewProduitLabel_id}"/>
+                        <h:outputText value="#{produitController.selected.id}" title="#{bundle.ViewProduitTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProduitViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

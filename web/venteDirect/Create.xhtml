@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VenteDirectCreateDlg" widgetVar="VenteDirectCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVenteDirectTitle}">
+            <h:form id="VenteDirectCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{venteDirectController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{venteDirectController.selected.userTraceForTransaction}" >
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_paiementEffetEnCour}" for="paiementEffetEnCour" />
+                        <p:inputText id="paiementEffetEnCour" value="#{venteDirectController.selected.paiementEffetEnCour}" title="#{bundle.CreateVenteDirectTitle_paiementEffetEnCour}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{venteDirectController.selected.responsable}" >
+                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{venteDirectController.selected.commentaire}" title="#{bundle.CreateVenteDirectTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_dateVenteDirect}" for="dateVenteDirect" />
+                        <p:calendar id="dateVenteDirect" pattern="MM/dd/yyyy" value="#{venteDirectController.selected.dateVenteDirect}" title="#{bundle.EditVenteDirectTitle_dateVenteDirect}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_montantTotal}" for="montantTotal" />
+                        <p:inputText id="montantTotal" value="#{venteDirectController.selected.montantTotal}" title="#{bundle.CreateVenteDirectTitle_montantTotal}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_paiement}" for="paiement" />
+                        <p:inputText id="paiement" value="#{venteDirectController.selected.paiement}" title="#{bundle.CreateVenteDirectTitle_paiement}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_modePaiement}" for="modePaiement" />
+                        <p:inputText id="modePaiement" value="#{venteDirectController.selected.modePaiement}" title="#{bundle.CreateVenteDirectTitle_modePaiement}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{venteDirectController.selected.tva}" title="#{bundle.CreateVenteDirectTitle_tva}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_client}" for="client" />
+                        <p:selectOneMenu id="client" value="#{venteDirectController.selected.client}" >
+                            <f:selectItems value="#{clientController.itemsAvailableSelectOne}"
+                                           var="clientItem"
+                                           itemValue="#{clientItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_abonne}" for="abonne" />
+                        <p:selectOneMenu id="abonne" value="#{venteDirectController.selected.abonne}" >
+                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
+                                           var="abonneItem"
+                                           itemValue="#{abonneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_projet}" for="projet" />
+                        <p:selectOneMenu id="projet" value="#{venteDirectController.selected.projet}" >
+                            <f:selectItems value="#{projetController.itemsAvailableSelectOne}"
+                                           var="projetItem"
+                                           itemValue="#{projetItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{venteDirectController.selected.id}" title="#{bundle.CreateVenteDirectTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{venteDirectController.create}" value="#{bundle.Save}" update="display,:VenteDirectListForm:datalist,:growl" oncomplete="handleSubmit(args,'VenteDirectCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VenteDirectCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

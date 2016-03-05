@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DemmandeViewDlg" widgetVar="DemmandeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDemmandeTitle}">
+            <h:form id="DemmandeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demmandeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{demmandeController.selected.userTraceForTransaction}" title="#{bundle.ViewDemmandeTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_paiementEffetEnCour}"/>
+                        <h:outputText value="#{demmandeController.selected.paiementEffetEnCour}" title="#{bundle.ViewDemmandeTitle_paiementEffetEnCour}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_tva}"/>
+                        <h:outputText value="#{demmandeController.selected.tva}" title="#{bundle.ViewDemmandeTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_responsable}"/>
+                        <h:outputText value="#{demmandeController.selected.responsable}" title="#{bundle.ViewDemmandeTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_projet}"/>
+                        <h:outputText value="#{demmandeController.selected.projet}" title="#{bundle.ViewDemmandeTitle_projet}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_abonne}"/>
+                        <h:outputText value="#{demmandeController.selected.abonne}" title="#{bundle.ViewDemmandeTitle_abonne}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_dateDemmande}"/>
+                        <h:outputText value="#{demmandeController.selected.dateDemmande}" title="#{bundle.ViewDemmandeTitle_dateDemmande}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_paiement}"/>
+                        <h:outputText value="#{demmandeController.selected.paiement}" title="#{bundle.ViewDemmandeTitle_paiement}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_etatLivraison}"/>
+                        <p:selectBooleanCheckbox value="#{demmandeController.selected.etatLivraison}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_client}"/>
+                        <h:outputText value="#{demmandeController.selected.client}" title="#{bundle.ViewDemmandeTitle_client}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_id}"/>
+                        <h:outputText value="#{demmandeController.selected.id}" title="#{bundle.ViewDemmandeTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_commentaire}"/>
+                        <h:outputText value="#{demmandeController.selected.commentaire}" title="#{bundle.ViewDemmandeTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_dateCommande}"/>
+                        <h:outputText value="#{demmandeController.selected.dateCommande}" title="#{bundle.ViewDemmandeTitle_dateCommande}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_dateEchance}"/>
+                        <h:outputText value="#{demmandeController.selected.dateEchance}" title="#{bundle.ViewDemmandeTitle_dateEchance}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_montantTotal}"/>
+                        <h:outputText value="#{demmandeController.selected.montantTotal}" title="#{bundle.ViewDemmandeTitle_montantTotal}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeLabel_modePaiement}"/>
+                        <h:outputText value="#{demmandeController.selected.modePaiement}" title="#{bundle.ViewDemmandeTitle_modePaiement}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DemmandeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

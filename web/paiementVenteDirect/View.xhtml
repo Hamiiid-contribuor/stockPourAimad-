@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementVenteDirectViewDlg" widgetVar="PaiementVenteDirectViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaiementVenteDirectTitle}">
+            <h:form id="PaiementVenteDirectViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementVenteDirectController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.userTraceForTransaction}" title="#{bundle.ViewPaiementVenteDirectTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_dateEncaissement}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.dateEncaissement}" title="#{bundle.ViewPaiementVenteDirectTitle_dateEncaissement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_encaisser}"/>
+                        <p:selectBooleanCheckbox value="#{paiementVenteDirectController.selected.encaisser}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_montant}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.montant}" title="#{bundle.ViewPaiementVenteDirectTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_mode}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.mode}" title="#{bundle.ViewPaiementVenteDirectTitle_mode}"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_description}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.description}" title="#{bundle.ViewPaiementVenteDirectTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_dateEcheance}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.dateEcheance}" title="#{bundle.ViewPaiementVenteDirectTitle_dateEcheance}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_datePaiement}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.datePaiement}" title="#{bundle.ViewPaiementVenteDirectTitle_datePaiement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_id}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.id}" title="#{bundle.ViewPaiementVenteDirectTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_photoEffet}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.photoEffet}" title="#{bundle.ViewPaiementVenteDirectTitle_photoEffet}"/>
+                        <h:outputText value="#{bundle.ViewPaiementVenteDirectLabel_venteDirect}"/>
+                        <h:outputText value="#{paiementVenteDirectController.selected.venteDirect}" title="#{bundle.ViewPaiementVenteDirectTitle_venteDirect}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PaiementVenteDirectViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CommandeItemCreateDlg" widgetVar="CommandeItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCommandeItemTitle}">
+            <h:form id="CommandeItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="#{bundle.Famille}" for="famille" />
+                        <p:selectOneMenu id="famille" value="#{commandeController.selectedFamille}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{familleController.findFamilleByAbonne(userController.selected.abonne)}"
+                                           var="familleItem"
+                                           itemValue="#{familleItem}" />
+                            <p:ajax process="famille" listener="#{commandeController.findProduitByFamille(0)}" update="produit" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.ViewAchatDirectItemTitle_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{commandeController.selectedProduit}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{commandeController.produits}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}" itemLabel="#{produitItem.libelle} #{produitItem.uniteMesure.nom}(qte=#{produitItem.qteGlobalStock}) "/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCommandeItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{commandeController.commandItem.prix}" title="#{bundle.CreateCommandeItemTitle_prix}" />
+                        <p:outputLabel value="#{bundle.CreateCommandeItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{commandeController.commandItem.qte}" title="#{bundle.CreateCommandeItemTitle_qte}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{commandeController.createCommandeItem()}" value="#{bundle.Save}" update="display,:CommandeItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'CommandeItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CommandeItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

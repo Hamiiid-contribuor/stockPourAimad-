@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AbonneEditDlg" widgetVar="AbonneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAbonneTitle}">
+            <h:form id="AbonneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{abonneController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_logo}" for="logo" />
+                        <p:inputText id="logo" value="#{abonneController.selected.logo}" title="#{bundle.EditAbonneTitle_logo}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_avance}" for="avance" />
+                        <p:inputText id="avance" value="#{abonneController.selected.avance}" title="#{bundle.EditAbonneTitle_avance}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_dateCreation}" for="dateCreation" />
+                        <p:calendar id="dateCreation" pattern="MM/dd/yyyy" value="#{abonneController.selected.dateCreation}" title="#{bundle.EditAbonneTitle_dateCreation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_secteurActivite}" for="secteurActivite" />
+                        <p:selectOneMenu id="secteurActivite" value="#{abonneController.selected.secteurActivite}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{secteurActiviteController.itemsAvailableSelectOne}"
+                                           var="secteurActiviteItem"
+                                           itemValue="#{secteurActiviteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_cheminDossier}" for="cheminDossier" />
+                        <p:inputText id="cheminDossier" value="#{abonneController.selected.cheminDossier}" title="#{bundle.EditAbonneTitle_cheminDossier}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_defaultResponsable}" for="defaultResponsable" />
+                        <p:selectOneMenu id="defaultResponsable" value="#{abonneController.selected.defaultResponsable}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                           var="defaultResponsableItem"
+                                           itemValue="#{defaultResponsableItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{abonneController.selected.commentaire}" title="#{bundle.EditAbonneTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_bloquer}" for="bloquer" />
+                        <p:inputText id="bloquer" value="#{abonneController.selected.bloquer}" title="#{bundle.EditAbonneTitle_bloquer}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_societe}" for="societe" />
+                        <p:inputText id="societe" value="#{abonneController.selected.societe}" title="#{bundle.EditAbonneTitle_societe}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{abonneController.selected.nom}" title="#{bundle.EditAbonneTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{abonneController.selected.prenom}" title="#{bundle.EditAbonneTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{abonneController.selected.email}" title="#{bundle.EditAbonneTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{abonneController.selected.adresse}" title="#{bundle.EditAbonneTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{abonneController.selected.tel}" title="#{bundle.EditAbonneTitle_tel}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_header}" for="header" />
+                        <p:inputText id="header" value="#{abonneController.selected.header}" title="#{bundle.EditAbonneTitle_header}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_footer}" for="footer" />
+                        <p:inputText id="footer" value="#{abonneController.selected.footer}" title="#{bundle.EditAbonneTitle_footer}" />
+                        <p:outputLabel value="#{bundle.EditAbonneLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{abonneController.selected.id}" title="#{bundle.EditAbonneTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{abonneController.update}" value="#{bundle.Save}" update="display,:AbonneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AbonneEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AbonneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

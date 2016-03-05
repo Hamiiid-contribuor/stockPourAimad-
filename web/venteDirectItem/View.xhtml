@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VenteDirectItemViewDlg" widgetVar="VenteDirectItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVenteDirectItemTitle}">
+            <h:form id="VenteDirectItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{venteDirectItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_magasin}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.magasin}" title="#{bundle.ViewVenteDirectItemTitle_magasin}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_venteDirect}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.venteDirect}" title="#{bundle.ViewVenteDirectItemTitle_venteDirect}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_produit}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.produit}" title="#{bundle.ViewVenteDirectItemTitle_produit}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_qte}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.qte}" title="#{bundle.ViewVenteDirectItemTitle_qte}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_prix}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.prix}" title="#{bundle.ViewVenteDirectItemTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_qteAvoir}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.qteAvoir}" title="#{bundle.ViewVenteDirectItemTitle_qteAvoir}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectItemLabel_id}"/>
+                        <h:outputText value="#{venteDirectItemController.selected.id}" title="#{bundle.ViewVenteDirectItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VenteDirectItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

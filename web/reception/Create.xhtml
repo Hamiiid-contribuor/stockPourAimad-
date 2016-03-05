@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCommandeItemTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <h:form id="CommentaireAndDateRecptionForm">
+                            <p:fieldset legend="Infos Reception" style="margin-bottom:20px" rendered="#{receptionController.validerBoolean==1}">
+                                <p:panelGrid columns="8" >
+                                    <p:outputLabel value="Commentaire" for="commentaire" />
+                                    <p:inputText id="commentaire" value="#{receptionController.selected.commentaire}" title="commentaire" />
+                                    <p:outputLabel value="dateReception" for="dateReception" />
+                                    <p:calendar id="dateReception" pattern="MM/dd/yyyy" value="#{receptionController.selected.dateReception}" title="dateReception" required="true" requiredMessage="Merci d'inserer la date de reception" />
+                                    <p:outputLabel value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
+                                    <p:selectOneMenu id="responsable" value="#{receptionController.selected.responsable}" required="true" requiredMessage="Merçi de selectionner un responsable">
+                                        <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                        <f:selectItems value="#{responsableController.findByAbonne()}"
+                                                       var="responsableItem"
+                                                       itemValue="#{responsableItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton value="Finir" actionListener="#{receptionController.save()}" update=":growl,:CommentaireAndDateRecptionForm,:ReceptionItemListForm,:CommandeItemListForm:datalist"/>
+                                </p:panelGrid>
+                            </p:fieldset>
+                        </h:form>
+                    </div>
+                </div>  
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-8">
+                        <h:form id="CommandeItemListForm">
+                            <p:fieldset legend="Les Produits de la Commande" style="margin-bottom:20px">
+                                <p:dataTable id="datalist" value="#{receptionController.commande.commandeItems}" var="item"
+                                             paginator="true"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_produit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.produit.libelle}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_prix}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.prix}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_qte}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qte}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_qteRecu}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qteRecu}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_qteAvoir}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qteAvoir}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Action"/>
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-plus"  actionListener="#{receptionController.verAjouterReception(item)}" update=":ReceptionItemCreateDlg" oncomplete="PF('ReceptionItemCreateDialog').show()"/>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:fieldset>
+                        </h:form>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <h:form id="ReceptionItemListForm">
+                            <p:fieldset id="fieldsetReceptionITems" legend="Les Lignes de la Reception" style="margin-bottom:20px" rendered="#{receptionController.selected.receptionItems.size()>0}">
+                                <p:dataTable id="datalist" value="#{receptionController.selected.receptionItems}" var="item"
+                                             paginator="true"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListReceptionItemTitle_produit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.produit.libelle}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListReceptionItemTitle_magasin}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.magasin.nom}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListReceptionItemTitle_qte}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qte}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Action"/>
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-trash" actionListener="#{receptionController.deleteReceptionItem(item)}"
+                                                         update="@form,growl"  style="width:30px;height:20px"/>
+
+                                    </p:column>
+
+                                </p:dataTable>
+                                <p:commandButton value="Valider" actionListener="#{receptionController.valider()}" update=":CommentaireAndDateRecptionForm"/>
+                            </p:fieldset>
+
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <ui:include src="/receptionItem/Create.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

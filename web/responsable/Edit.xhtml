@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ResponsableEditDlg" widgetVar="ResponsableEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditResponsableTitle}">
+            <h:form id="ResponsableEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{responsableController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{responsableController.selected.userTraceForTransaction}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{responsableController.selected.id}" title="#{bundle.EditResponsableTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{responsableController.selected.nom}" title="#{bundle.EditResponsableTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{responsableController.selected.prenom}" title="#{bundle.EditResponsableTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{responsableController.selected.tel}" title="#{bundle.EditResponsableTitle_tel}" />
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{responsableController.selected.email}" title="#{bundle.EditResponsableTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditResponsableLabel_abonne}" for="abonne" />
+                        <p:selectOneMenu id="abonne" value="#{responsableController.selected.abonne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
+                                           var="abonneItem"
+                                           itemValue="#{abonneItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{responsableController.update}" value="#{bundle.Save}" update="display,:ResponsableListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ResponsableEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ResponsableEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

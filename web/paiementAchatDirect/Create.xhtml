@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementAchatDirectCreateDlg" widgetVar="PaiementAchatDirectCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePaiementAchatDirectTitle}">
+            <h:form id="PaiementAchatDirectCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementAchatDirectController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{paiementAchatDirectController.selected.userTraceForTransaction}" >
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_dateEncaissement}" for="dateEncaissement" />
+                        <p:calendar id="dateEncaissement" pattern="MM/dd/yyyy" value="#{paiementAchatDirectController.selected.dateEncaissement}" title="#{bundle.EditPaiementAchatDirectTitle_dateEncaissement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_photoEffet}" for="photoEffet" />
+                        <p:inputText id="photoEffet" value="#{paiementAchatDirectController.selected.photoEffet}" title="#{bundle.CreatePaiementAchatDirectTitle_photoEffet}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_encaisser}" for="encaisser" />
+                        <p:selectBooleanCheckbox id="encaisser" value="#{paiementAchatDirectController.selected.encaisser}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{paiementAchatDirectController.selected.montant}" title="#{bundle.CreatePaiementAchatDirectTitle_montant}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_mode}" for="mode" />
+                        <p:inputText id="mode" value="#{paiementAchatDirectController.selected.mode}" title="#{bundle.CreatePaiementAchatDirectTitle_mode}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{paiementAchatDirectController.selected.description}" title="#{bundle.CreatePaiementAchatDirectTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_dateEcheance}" for="dateEcheance" />
+                        <p:calendar id="dateEcheance" pattern="MM/dd/yyyy" value="#{paiementAchatDirectController.selected.dateEcheance}" title="#{bundle.EditPaiementAchatDirectTitle_dateEcheance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_datePaiement}" for="datePaiement" />
+                        <p:calendar id="datePaiement" pattern="MM/dd/yyyy" value="#{paiementAchatDirectController.selected.datePaiement}" title="#{bundle.EditPaiementAchatDirectTitle_datePaiement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_achatDirect}" for="achatDirect" />
+                        <p:selectOneMenu id="achatDirect" value="#{paiementAchatDirectController.selected.achatDirect}" >
+                            <f:selectItems value="#{achatDirectController.itemsAvailableSelectOne}"
+                                           var="achatDirectItem"
+                                           itemValue="#{achatDirectItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePaiementAchatDirectLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{paiementAchatDirectController.selected.id}" title="#{bundle.CreatePaiementAchatDirectTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paiementAchatDirectController.create}" value="#{bundle.Save}" update="display,:PaiementAchatDirectListForm:datalist,:growl" oncomplete="handleSubmit(args,'PaiementAchatDirectCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaiementAchatDirectCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

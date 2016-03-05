@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDemandeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DemandeCreateForm">
+                #{demandeController.initAbonne(userController.selected.abonne)}
+                <p:fieldset legend="Infos Demande" style="margin-bottom:20px">
+                    <p:panelGrid columns="12">
+                        <p:outputLabel value="#{bundle.Reference}" for="refPriffix" style="display:block;width:15px"/>
+                        <p:inputText id="refPriffix" style="display:block;width:40px" value="#{demandeController.selected.referencePriffix}" title="#{bundle.Reference}" />
+                        <p:inputText id="refIndex" style="display:block;width:40px" value="#{demandeController.selected.referenceIndex}" title="#{bundle.Reference}" />
+                        <p:inputText id="refSuffix" style="display:block;width:40px" value="#{demandeController.selected.referenceSuffix}" title="#{bundle.Reference}" />
+
+                        <p:commandButton  actionListener="#{demandeController.generateReferenceIndexDemande()}" 
+                                          value="#{bundle.CreateDemandeTitle_generate}" update="refIndex" />
+                        <p:outputLabel style="display:block;width:40px" value="#{bundle.CreateDemandeLabel_projet}" for="projet" />
+                        <p:selectOneMenu id="projet" value="#{demandeController.selected.projet}" style="display:block;width:100px" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{projetController.findProjetByAbonne(userController.selected.abonne,0)}"
+                                           var="projetItem"
+                                           itemValue="#{projetItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel style="display:block;width:40px"  value="#{bundle.CreateDemandeLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{demandeController.selected.tva}" title="#{bundle.CreateDemandeTitle_tva}" />
+
+                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{demandeController.selected.responsable}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{responsableController.findResponsableByAbonne(userController.selected.abonne,0)}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                     
+                    </p:panelGrid>
+                    <p:panelGrid columns="9">
+                        <p:outputLabel style="display:block;width:70px"  value="#{bundle.CreateDemandeLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{demandeController.selected.commentaire}" title="#{bundle.CreateDemandeTitle_commentaire}" />
+
+                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateDemandeLabel_fournisseur}" for="fournisseur" />
+                        <p:selectOneMenu id="fournisseur" value="#{demandeController.selected.fournisseur}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{fournisseurController.findFournisseurByAbonne(userController.selected.abonne,0)}"
+                                           var="fournisseurItem"
+                                           itemValue="#{fournisseurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.DateDemande}" style="display:block;width:95px" for="dateDemande" />
+                        <p:calendar id="dateDemande" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{demandeController.selected.dateDemande}" title="#{bundle.DateDemande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.DateEcheance}" style="display:block;width:85px" for="dateEcheance" />
+                        <p:calendar id="dateEcheance" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{demandeController.selected.dateEchance}" title="#{bundle.DateEcheance}"  showOn="button"/>
+                    </p:panelGrid>
+                </p:fieldset>
+                <p:fieldset legend="Infos Ligne de Demande" style="margin-bottom:20px">
+                    <p:panelGrid columns="12">
+                        <p:outputLabel value="#{bundle.CreateDemandeItemLabel_magasin}" for="magasin" />
+                        <p:selectOneMenu id="magasin" value="#{demandeController.selectedMagasin}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{demandeController.findMagasinByAbonne(userController.selected.abonne,0)}"
+                                           var="magasinItem"
+                                           itemValue="#{magasinItem}" />
+                            <p:ajax process="famille magasin" listener="#{demandeController.findProduitByMagasinAndFamille(demandeController.selectedMagasin,demandeController.selectedFamille,0)}" update="produit" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.Famille}" for="famille" />
+                        <p:selectOneMenu id="famille" value="#{demandeController.selectedFamille}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{demandeController.findFamilleByAbonne(userController.selected.abonne)}"
+                                           var="familleItem"
+                                           itemValue="#{familleItem}" />
+                            <p:ajax process="famille magasin" listener="#{demandeController.findProduitByMagasinAndFamille(demandeController.selectedMagasin,demandeController.selectedFamille,0)}" update="produit" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.ViewAchatDirectItemTitle_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{demandeController.selectedProduit.id}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{demandeController.produits}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem.id}" itemLabel="#{produitItem.libelle} #{produitItem.uniteMesure.nom}(qte=#{produitItem.qteParStock}/#{produitItem.qteGlobalStock}) "/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateDemandeItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{demandeController.commandItem.prix}" title="#{bundle.CreateDemandeItemTitle_prix}" />
+
+                        <p:outputLabel value="#{bundle.CreateDemandeItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{demandeController.commandItem.qte}" title="#{bundle.CreateDemandeItemTitle_qte}" />
+
+                        <p:commandButton actionListener="#{demandeController.createDemandeItem}"
+                                         value="Valider" 
+                                         update=":DemandeItemListForm:datalist,:growl" />
+                        <p:commandButton actionListener="#{demandeController.createDemande(userController.selected)}"
+                                         value="Finir"
+                                         update=":growl,:DemandeItemListForm:datalist,:DemandeCreateForm" />
+                    </p:panelGrid>
+                </p:fieldset>
+            </h:form>
+
+            <p:fieldset legend="Les Produits de la Demande" style="margin-bottom:20px">
+                <h:form id="DemandeItemListForm">
+                    <p:dataTable id="datalist" value="#{demandeController.demandeItems}" var="item"
+                                 selectionMode="single" selection="#{demandeController.commandItem}"
+                                 paginator="true"
+                                 rowKey="#{item.produit.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeItemTitle_produit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.Famille}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.famille.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeItemTitle_prix}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeItemTitle_qte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qte}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeItemTitle_magasin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.magasin.nom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-trash" actionListener="#{demandeController.deleteDemandeItem(item)}"
+                                             update=":DemandeItemListForm:datalist"  style="width:30px;height:20px"/>
+
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <h:outputText value="#{bundle.CreateDemandeLabel_montantTotal}  "/>
+                            <h:outputText id="montantTotal" value="#{demandeController.selected.montantTotal}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </p:fieldset>
+        </ui:define>
+
+    </ui:composition>
+</html>

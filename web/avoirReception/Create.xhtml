@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCommandeItemTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <h:form id="CommentaireAndDateRecptionForm">
+                            <p:fieldset legend="Infos Reception" style="margin-bottom:20px" >
+                                <p:panelGrid columns="8" >
+                                    <p:outputLabel value="Commentaire" for="commentaire" />
+                                    <p:inputText id="commentaire" value="#{avoirReceptionController.selected.message}" title="commentaire" />
+                                    <p:outputLabel value="dateReception" for="dateReception" />
+                                    <p:calendar id="dateReception" pattern="MM/dd/yyyy" value="#{avoirReceptionController.selected.dateAvoirReception}" title="dateAvoirReception" required="true" requiredMessage="Merci d'inserer la date de reception" />                                    
+                                </p:panelGrid>
+                                <p:commandButton value="Finir" actionListener="#{avoirReceptionController.save()}" update=":growl,:CommentaireAndDateRecptionForm,:ReceptionItemListForm,:CommandeItemListForm:datalist"/>
+                            </p:fieldset>
+                        </h:form>
+                    </div>
+                </div>  
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-8">
+                        <h:form id="ReceptionItemListForm">
+                            <p:fieldset legend="Les Produits de l'Avoir" style="margin-bottom:20px">
+                                <p:dataTable id="datalist" value="#{avoirReceptionController.reception.receptionItems}" var="item"
+                                             paginator="true"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_produit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.produit.libelle}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_qte}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qte}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListCommandeItemTitle_qteAvoir}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qteAvoir}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Action"/>
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-plus"  actionListener="#{avoirReceptionController.verAjouterReception(item)}" update=":AvoirReceptionItemCreateDlg" oncomplete="PF('AvoirReceptionItemCreateDialog').show()"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:fieldset>
+                        </h:form>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <h:form id="AvoirReceptionItemListForm">
+                            <p:fieldset legend="Les Lignes de l'Avoir" style="margin-bottom:20px">
+                                <p:dataTable id="datalist" value="#{avoirReceptionController.selected.avoirReceptionItems}" var="item"
+                                             paginator="true"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListReceptionItemTitle_produit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.produit.libelle}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListReceptionItemTitle_magasin}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.magasin.nom}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListReceptionItemTitle_qte}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.qte}"/>
+                                    </p:column>
+                                </p:dataTable>
+
+                            </p:fieldset>
+
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <ui:include src="/avoirReceptionItem/Create.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

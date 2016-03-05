@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ResponsableViewDlg" widgetVar="ResponsableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewResponsableTitle}">
+            <h:form id="ResponsableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{responsableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewResponsableLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{responsableController.selected.userTraceForTransaction}" title="#{bundle.ViewResponsableTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewResponsableLabel_id}"/>
+                        <h:outputText value="#{responsableController.selected.id}" title="#{bundle.ViewResponsableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewResponsableLabel_nom}"/>
+                        <h:outputText value="#{responsableController.selected.nom}" title="#{bundle.ViewResponsableTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewResponsableLabel_prenom}"/>
+                        <h:outputText value="#{responsableController.selected.prenom}" title="#{bundle.ViewResponsableTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewResponsableLabel_tel}"/>
+                        <h:outputText value="#{responsableController.selected.tel}" title="#{bundle.ViewResponsableTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewResponsableLabel_email}"/>
+                        <h:outputText value="#{responsableController.selected.email}" title="#{bundle.ViewResponsableTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewResponsableLabel_abonne}"/>
+                        <h:outputText value="#{responsableController.selected.abonne}" title="#{bundle.ViewResponsableTitle_abonne}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ResponsableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

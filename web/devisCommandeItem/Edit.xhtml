@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DevisCommandeItemEditDlg" widgetVar="DevisCommandeItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDevisCommandeItemTitle}">
+            <h:form id="DevisCommandeItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{devisCommandeItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDevisCommandeItemLabel_devisCommande}" for="devisCommande" />
+                        <p:selectOneMenu id="devisCommande" value="#{devisCommandeItemController.selected.devisCommande}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{devisCommandeController.itemsAvailableSelectOne}"
+                                           var="devisCommandeItem"
+                                           itemValue="#{devisCommandeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDevisCommandeItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{devisCommandeItemController.selected.qte}" title="#{bundle.EditDevisCommandeItemTitle_qte}" />
+                        <p:outputLabel value="#{bundle.EditDevisCommandeItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{devisCommandeItemController.selected.prix}" title="#{bundle.EditDevisCommandeItemTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditDevisCommandeItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{devisCommandeItemController.selected.produit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDevisCommandeItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{devisCommandeItemController.selected.id}" title="#{bundle.EditDevisCommandeItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{devisCommandeItemController.update}" value="#{bundle.Save}" update="display,:DevisCommandeItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DevisCommandeItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DevisCommandeItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

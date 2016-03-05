@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DevisDemmandeItemViewDlg" widgetVar="DevisDemmandeItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDevisDemmandeItemTitle}">
+            <h:form id="DevisDemmandeItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{devisDemmandeItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDevisDemmandeItemLabel_devisDemmande}"/>
+                        <h:outputText value="#{devisDemmandeItemController.selected.devisDemmande}" title="#{bundle.ViewDevisDemmandeItemTitle_devisDemmande}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeItemLabel_qte}"/>
+                        <h:outputText value="#{devisDemmandeItemController.selected.qte}" title="#{bundle.ViewDevisDemmandeItemTitle_qte}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeItemLabel_prix}"/>
+                        <h:outputText value="#{devisDemmandeItemController.selected.prix}" title="#{bundle.ViewDevisDemmandeItemTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeItemLabel_produit}"/>
+                        <h:outputText value="#{devisDemmandeItemController.selected.produit}" title="#{bundle.ViewDevisDemmandeItemTitle_produit}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeItemLabel_id}"/>
+                        <h:outputText value="#{devisDemmandeItemController.selected.id}" title="#{bundle.ViewDevisDemmandeItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DevisDemmandeItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

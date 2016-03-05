@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VenteDirectViewDlg" widgetVar="VenteDirectViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVenteDirectTitle}">
+            <h:form id="VenteDirectViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{venteDirectController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{venteDirectController.selected.userTraceForTransaction}" title="#{bundle.ViewVenteDirectTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_paiementEffetEnCour}"/>
+                        <h:outputText value="#{venteDirectController.selected.paiementEffetEnCour}" title="#{bundle.ViewVenteDirectTitle_paiementEffetEnCour}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_responsable}"/>
+                        <h:outputText value="#{venteDirectController.selected.responsable}" title="#{bundle.ViewVenteDirectTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_commentaire}"/>
+                        <h:outputText value="#{venteDirectController.selected.commentaire}" title="#{bundle.ViewVenteDirectTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_dateVenteDirect}"/>
+                        <h:outputText value="#{venteDirectController.selected.dateVenteDirect}" title="#{bundle.ViewVenteDirectTitle_dateVenteDirect}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_montantTotal}"/>
+                        <h:outputText value="#{venteDirectController.selected.montantTotal}" title="#{bundle.ViewVenteDirectTitle_montantTotal}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_paiement}"/>
+                        <h:outputText value="#{venteDirectController.selected.paiement}" title="#{bundle.ViewVenteDirectTitle_paiement}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_modePaiement}"/>
+                        <h:outputText value="#{venteDirectController.selected.modePaiement}" title="#{bundle.ViewVenteDirectTitle_modePaiement}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_tva}"/>
+                        <h:outputText value="#{venteDirectController.selected.tva}" title="#{bundle.ViewVenteDirectTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_client}"/>
+                        <h:outputText value="#{venteDirectController.selected.client}" title="#{bundle.ViewVenteDirectTitle_client}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_abonne}"/>
+                        <h:outputText value="#{venteDirectController.selected.abonne}" title="#{bundle.ViewVenteDirectTitle_abonne}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_projet}"/>
+                        <h:outputText value="#{venteDirectController.selected.projet}" title="#{bundle.ViewVenteDirectTitle_projet}"/>
+                        <h:outputText value="#{bundle.ViewVenteDirectLabel_id}"/>
+                        <h:outputText value="#{venteDirectController.selected.id}" title="#{bundle.ViewVenteDirectTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VenteDirectViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

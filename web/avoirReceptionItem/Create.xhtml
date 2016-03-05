@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvoirReceptionItemCreateDlg" widgetVar="AvoirReceptionItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAvoirReceptionItemTitle}">
+            <h:form id="AvoirReceptionItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="#{bundle.CreateAvoirReceptionItemLabel_stock}" for="stock" />
+                        <p:selectOneMenu id="stock" value="#{avoirReceptionController.avoirReceptionItem.magasin}" >
+                            <f:selectItems value="#{magasinController.findByAbonne()}"
+                                           var="magasinItem"
+                                           itemValue="#{magasinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAvoirReceptionItemLabel_produit}" for="produit" />
+                        <p:inputText id="produit" value="#{avoirReceptionController.avoirReceptionItem.produit.libelle}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.CreateAvoirReceptionItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{avoirReceptionController.avoirReceptionItem.qte}" title="#{bundle.CreateAvoirReceptionItemTitle_qte}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avoirReceptionController.addAvoirReceptionItemToAvoirReception()}" value="#{bundle.Save}" update=":growl,display,:AvoirReceptionItemListForm:datalist,:ReceptionItemListForm:datalist" oncomplete="handleSubmit(args,'AvoirReceptionItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AvoirReceptionItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

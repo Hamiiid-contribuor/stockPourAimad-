@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvoirVenteDirectItemViewDlg" widgetVar="AvoirVenteDirectItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAvoirVenteDirectItemTitle}">
+            <h:form id="AvoirVenteDirectItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avoirVenteDirectItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAvoirVenteDirectItemLabel_stock}"/>
+                        <h:outputText value="#{avoirVenteDirectItemController.selected.stock}" title="#{bundle.ViewAvoirVenteDirectItemTitle_stock}"/>
+                        <h:outputText value="#{bundle.ViewAvoirVenteDirectItemLabel_avoirVenteDirect}"/>
+                        <h:outputText value="#{avoirVenteDirectItemController.selected.avoirVenteDirect}" title="#{bundle.ViewAvoirVenteDirectItemTitle_avoirVenteDirect}"/>
+                        <h:outputText value="#{bundle.ViewAvoirVenteDirectItemLabel_produit}"/>
+                        <h:outputText value="#{avoirVenteDirectItemController.selected.produit}" title="#{bundle.ViewAvoirVenteDirectItemTitle_produit}"/>
+                        <h:outputText value="#{bundle.ViewAvoirVenteDirectItemLabel_qte}"/>
+                        <h:outputText value="#{avoirVenteDirectItemController.selected.qte}" title="#{bundle.ViewAvoirVenteDirectItemTitle_qte}"/>
+                        <h:outputText value="#{bundle.ViewAvoirVenteDirectItemLabel_id}"/>
+                        <h:outputText value="#{avoirVenteDirectItemController.selected.id}" title="#{bundle.ViewAvoirVenteDirectItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AvoirVenteDirectItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

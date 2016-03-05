@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DemmandeItemCreateDlg" widgetVar="DemmandeItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDemmandeItemTitle}">
+            <h:form id="DemmandeItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demmandeItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_demmande}" for="demmande" />
+                        <p:selectOneMenu id="demmande" value="#{demmandeItemController.selected.demmande}" >
+                            <f:selectItems value="#{demmandeController.itemsAvailableSelectOne}"
+                                           var="demmandeItem"
+                                           itemValue="#{demmandeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_magasin}" for="magasin" />
+                        <p:selectOneMenu id="magasin" value="#{demmandeItemController.selected.magasin}" >
+                            <f:selectItems value="#{magasinController.itemsAvailableSelectOne}"
+                                           var="magasinItem"
+                                           itemValue="#{magasinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{demmandeItemController.selected.qte}" title="#{bundle.CreateDemmandeItemTitle_qte}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_qteLivree}" for="qteLivree" />
+                        <p:inputText id="qteLivree" value="#{demmandeItemController.selected.qteLivree}" title="#{bundle.CreateDemmandeItemTitle_qteLivree}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{demmandeItemController.selected.prix}" title="#{bundle.CreateDemmandeItemTitle_prix}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_qteAvoir}" for="qteAvoir" />
+                        <p:inputText id="qteAvoir" value="#{demmandeItemController.selected.qteAvoir}" title="#{bundle.CreateDemmandeItemTitle_qteAvoir}" />
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{demmandeItemController.selected.produit}" >
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemmandeItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demmandeItemController.selected.id}" title="#{bundle.CreateDemmandeItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demmandeItemController.create}" value="#{bundle.Save}" update="display,:DemmandeItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'DemmandeItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemmandeItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

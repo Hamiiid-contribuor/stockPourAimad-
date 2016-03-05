@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />
+
+             
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" header="#{bundle.AppName}">
+
+                <h:form>
+                    <p:growl id="messages"/>
+                    <p:menubar>                        
+                        <p:submenu label="#{bundle.MesCollaborateurs}" icon="/resources/ico/coll_32.png">
+                            <p:submenu label="#{bundle.Clients}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/client/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Fournisseurs}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/fournisseur/List.xhtml" />
+                            </p:submenu>
+                        </p:submenu>                        
+                        <p:submenu label="#{bundle.AchatDirect}" icon="#">
+                            <p:menuitem value="#{bundle.Liste}" outcome="/achatDirect/List.xhtml" />
+                            <p:menuitem value="#{bundle.Ajout}" outcome="/achatDirect/Create.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="#{bundle.VenteDirect}" icon="#">
+                            <p:menuitem value="#{bundle.Liste}" outcome="/venteDirect/List.xhtml" />
+                            <p:menuitem value="#{bundle.Ajout}" outcome="/venteDirect/Create.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="#{bundle.Commande}" icon="#">
+
+                            <p:submenu label="#{bundle.Commande}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/commande/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/commande/Create.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Livraison}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/livraison/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/livraison/List.xhtml" />
+                            </p:submenu>
+
+                        </p:submenu>
+                        <p:submenu label="#{bundle.Demmande}" icon="#">
+
+                            <p:submenu label="#{bundle.Demmande}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/demmande/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/demmande/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Reception}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/reception/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/reception/List.xhtml" />
+                            </p:submenu>
+
+                        </p:submenu>
+                        <p:submenu label="#{bundle.Avoir}" icon="#">
+                            <p:submenu label="#{bundle.AchatDirect}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/avoirAchatDirect/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/avoirAchatDirect/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Livraison}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/avoirLivraison/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/avoirLivraison/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.VenteDirect}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/avoirVenteDirect/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/avoirVenteDirect/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Reception}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/avoirReception/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/avoirReception/List.xhtml" />
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="#{bundle.Paiement}">
+                            <p:submenu label="#{bundle.AchatDirect}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/paiementAchatDirect/List.xhtml" />                                
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/paiementAchatDirect/List.xhtml" />                                
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Commande}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/paiementCommande/List.xhtml" />                                
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/paiementCommande/List.xhtml" />                                
+                            </p:submenu>
+                            <p:submenu label="#{bundle.VenteDirect}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/paiementVenteDirect/List.xhtml" />                                
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/paiementVenteDirect/List.xhtml" />                                
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Demmande}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/paiementDemande/List.xhtml" />                                
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/paiementDemande/List.xhtml" />                                
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="#{bundle.Factures} / #{bundle.Devis}" icon="#">
+
+                            <p:submenu label="#{bundle.Factures}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/client/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/client/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.Devis}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/client/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/client/List.xhtml" />
+                            </p:submenu>
+
+                        </p:submenu>
+
+                        <p:submenu label="#{bundle.Parametre}" icon="#">
+
+                            <p:submenu label="#{bundle.Famille}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/famille/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.MesMagazins}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/magasin/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="#{bundle.MonStock}">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/stock/List.xhtml" />
+                            </p:submenu>
+
+                            <p:menuitem value="#{bundle.Abonnement}" outcome="/client/List.xhtml" />
+                            <p:menuitem value="#{bundle.Users}" outcome="/user/List.xhtml" />
+
+                        </p:submenu>
+                        <f:facet name="options">
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                        </f:facet>
+
+                    </p:menubar>
+                </h:form>
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="center">
+
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

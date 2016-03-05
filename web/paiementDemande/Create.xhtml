@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementDemandeCreateDlg" widgetVar="PaiementDemandeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePaiementDemandeTitle}">
+            <h:form id="PaiementDemandeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementDemandeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{paiementDemandeController.selected.userTraceForTransaction}" >
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_dateEncaissement}" for="dateEncaissement" />
+                        <p:calendar id="dateEncaissement" pattern="MM/dd/yyyy" value="#{paiementDemandeController.selected.dateEncaissement}" title="#{bundle.EditPaiementDemandeTitle_dateEncaissement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_encaisser}" for="encaisser" />
+                        <p:selectBooleanCheckbox id="encaisser" value="#{paiementDemandeController.selected.encaisser}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_demmande}" for="demmande" />
+                        <p:selectOneMenu id="demmande" value="#{paiementDemandeController.selected.demmande}" >
+                            <f:selectItems value="#{demmandeController.itemsAvailableSelectOne}"
+                                           var="demmandeItem"
+                                           itemValue="#{demmandeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{paiementDemandeController.selected.montant}" title="#{bundle.CreatePaiementDemandeTitle_montant}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_mode}" for="mode" />
+                        <p:inputText id="mode" value="#{paiementDemandeController.selected.mode}" title="#{bundle.CreatePaiementDemandeTitle_mode}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{paiementDemandeController.selected.description}" title="#{bundle.CreatePaiementDemandeTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_dateEcheance}" for="dateEcheance" />
+                        <p:calendar id="dateEcheance" pattern="MM/dd/yyyy" value="#{paiementDemandeController.selected.dateEcheance}" title="#{bundle.EditPaiementDemandeTitle_dateEcheance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_datePaiement}" for="datePaiement" />
+                        <p:calendar id="datePaiement" pattern="MM/dd/yyyy" value="#{paiementDemandeController.selected.datePaiement}" title="#{bundle.EditPaiementDemandeTitle_datePaiement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{paiementDemandeController.selected.id}" title="#{bundle.CreatePaiementDemandeTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreatePaiementDemandeLabel_photoEffet}" for="photoEffet" />
+                        <p:inputText id="photoEffet" value="#{paiementDemandeController.selected.photoEffet}" title="#{bundle.CreatePaiementDemandeTitle_photoEffet}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paiementDemandeController.create}" value="#{bundle.Save}" update="display,:PaiementDemandeListForm:datalist,:growl" oncomplete="handleSubmit(args,'PaiementDemandeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaiementDemandeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProduitEditDlg" widgetVar="ProduitEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProduitTitle}">
+            <h:form id="ProduitEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{produitController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProduitLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{produitController.selected.userTraceForTransaction}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProduitLabel_uniteMesure}" for="uniteMesure" />
+                        <p:selectOneMenu id="uniteMesure" value="#{produitController.selected.uniteMesure}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{uniteMesureController.itemsAvailableSelectOne}"
+                                           var="uniteMesureItem"
+                                           itemValue="#{uniteMesureItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProduitLabel_libelle}" for="libelle" />
+                        <p:inputText id="libelle" value="#{produitController.selected.libelle}" title="#{bundle.EditProduitTitle_libelle}" />
+                        <p:outputLabel value="#{bundle.EditProduitLabel_reference}" for="reference" />
+                        <p:inputText id="reference" value="#{produitController.selected.reference}" title="#{bundle.EditProduitTitle_reference}" />
+                        <p:outputLabel value="#{bundle.EditProduitLabel_qteGlobalStock}" for="qteGlobalStock" />
+                        <p:inputText id="qteGlobalStock" value="#{produitController.selected.qteGlobalStock}" title="#{bundle.EditProduitTitle_qteGlobalStock}" />
+                        <p:outputLabel value="#{bundle.EditProduitLabel_famille}" for="famille" />
+                        <p:selectOneMenu id="famille" value="#{produitController.selected.famille}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{familleController.itemsAvailableSelectOne}"
+                                           var="familleItem"
+                                           itemValue="#{familleItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProduitLabel_abonne}" for="abonne" />
+                        <p:selectOneMenu id="abonne" value="#{produitController.selected.abonne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
+                                           var="abonneItem"
+                                           itemValue="#{abonneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProduitLabel_seuilAlert}" for="seuilAlert" />
+                        <p:inputText id="seuilAlert" value="#{produitController.selected.seuilAlert}" title="#{bundle.EditProduitTitle_seuilAlert}" />
+                        <p:outputLabel value="#{bundle.EditProduitLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{produitController.selected.id}" title="#{bundle.EditProduitTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{produitController.update}" value="#{bundle.Save}" update="display,:ProduitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProduitEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProduitEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AchatDirectItemEditDlg" widgetVar="AchatDirectItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAchatDirectItemTitle}">
+            <h:form id="AchatDirectItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{achatDirectItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_achatDirect}" for="achatDirect" />
+                        <p:selectOneMenu id="achatDirect" value="#{achatDirectItemController.selected.achatDirect}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{achatDirectController.itemsAvailableSelectOne}"
+                                           var="achatDirectItem"
+                                           itemValue="#{achatDirectItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{achatDirectItemController.selected.produit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{achatDirectItemController.selected.qte}" title="#{bundle.EditAchatDirectItemTitle_qte}" />
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{achatDirectItemController.selected.prix}" title="#{bundle.EditAchatDirectItemTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_qteAvoir}" for="qteAvoir" />
+                        <p:inputText id="qteAvoir" value="#{achatDirectItemController.selected.qteAvoir}" title="#{bundle.EditAchatDirectItemTitle_qteAvoir}" />
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_stock}" for="stock" />
+                        <p:selectOneMenu id="stock" value="#{achatDirectItemController.selected.stock}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
+                                           var="stockItem"
+                                           itemValue="#{stockItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAchatDirectItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{achatDirectItemController.selected.id}" title="#{bundle.EditAchatDirectItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{achatDirectItemController.update}" value="#{bundle.Save}" update="display,:AchatDirectItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AchatDirectItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AchatDirectItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

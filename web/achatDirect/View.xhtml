@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AchatDirectViewDlg" widgetVar="AchatDirectViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAchatDirectTitle}">
+            <h:form id="AchatDirectViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{achatDirectController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{achatDirectController.selected.userTraceForTransaction}" title="#{bundle.ViewAchatDirectTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_paiementEffetEnCour}"/>
+                        <h:outputText value="#{achatDirectController.selected.paiementEffetEnCour}" title="#{bundle.ViewAchatDirectTitle_paiementEffetEnCour}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_commentaire}"/>
+                        <h:outputText value="#{achatDirectController.selected.commentaire}" title="#{bundle.ViewAchatDirectTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_dateAchatDirect}"/>
+                        <h:outputText value="#{achatDirectController.selected.dateAchatDirect}" title="#{bundle.ViewAchatDirectTitle_dateAchatDirect}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_montantTotal}"/>
+                        <h:outputText value="#{achatDirectController.selected.montantTotal}" title="#{bundle.ViewAchatDirectTitle_montantTotal}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_paiement}"/>
+                        <h:outputText value="#{achatDirectController.selected.paiement}" title="#{bundle.ViewAchatDirectTitle_paiement}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_modePaiement}"/>
+                        <h:outputText value="#{achatDirectController.selected.modePaiement}" title="#{bundle.ViewAchatDirectTitle_modePaiement}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_tva}"/>
+                        <h:outputText value="#{achatDirectController.selected.tva}" title="#{bundle.ViewAchatDirectTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_fournisseur}"/>
+                        <h:outputText value="#{achatDirectController.selected.fournisseur}" title="#{bundle.ViewAchatDirectTitle_fournisseur}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_abonne}"/>
+                        <h:outputText value="#{achatDirectController.selected.abonne}" title="#{bundle.ViewAchatDirectTitle_abonne}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_projet}"/>
+                        <h:outputText value="#{achatDirectController.selected.projet}" title="#{bundle.ViewAchatDirectTitle_projet}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_responsable}"/>
+                        <h:outputText value="#{achatDirectController.selected.responsable}" title="#{bundle.ViewAchatDirectTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectLabel_id}"/>
+                        <h:outputText value="#{achatDirectController.selected.id}" title="#{bundle.ViewAchatDirectTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AchatDirectViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

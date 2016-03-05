@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DevisDemmandeViewDlg" widgetVar="DevisDemmandeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDevisDemmandeTitle}">
+            <h:form id="DevisDemmandeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{devisDemmandeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.userTraceForTransaction}" title="#{bundle.ViewDevisDemmandeTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_responsable}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.responsable}" title="#{bundle.ViewDevisDemmandeTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_tva}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.tva}" title="#{bundle.ViewDevisDemmandeTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_demande}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.demande}" title="#{bundle.ViewDevisDemmandeTitle_demande}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_id}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.id}" title="#{bundle.ViewDevisDemmandeTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_commentaire}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.commentaire}" title="#{bundle.ViewDevisDemmandeTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_dateDevisDemmande}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.dateDevisDemmande}" title="#{bundle.ViewDevisDemmandeTitle_dateDevisDemmande}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_montantTotal}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.montantTotal}" title="#{bundle.ViewDevisDemmandeTitle_montantTotal}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_client}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.client}" title="#{bundle.ViewDevisDemmandeTitle_client}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_abonne}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.abonne}" title="#{bundle.ViewDevisDemmandeTitle_abonne}"/>
+                        <h:outputText value="#{bundle.ViewDevisDemmandeLabel_projet}"/>
+                        <h:outputText value="#{devisDemmandeController.selected.projet}" title="#{bundle.ViewDevisDemmandeTitle_projet}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DevisDemmandeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

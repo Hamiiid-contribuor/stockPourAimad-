@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AbonneViewDlg" widgetVar="AbonneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAbonneTitle}">
+            <h:form id="AbonneViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{abonneController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAbonneLabel_logo}"/>
+                        <h:outputText value="#{abonneController.selected.logo}" title="#{bundle.ViewAbonneTitle_logo}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_avance}"/>
+                        <h:outputText value="#{abonneController.selected.avance}" title="#{bundle.ViewAbonneTitle_avance}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_dateCreation}"/>
+                        <h:outputText value="#{abonneController.selected.dateCreation}" title="#{bundle.ViewAbonneTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_secteurActivite}"/>
+                        <h:outputText value="#{abonneController.selected.secteurActivite}" title="#{bundle.ViewAbonneTitle_secteurActivite}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_cheminDossier}"/>
+                        <h:outputText value="#{abonneController.selected.cheminDossier}" title="#{bundle.ViewAbonneTitle_cheminDossier}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_defaultResponsable}"/>
+                        <h:outputText value="#{abonneController.selected.defaultResponsable}" title="#{bundle.ViewAbonneTitle_defaultResponsable}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_commentaire}"/>
+                        <h:outputText value="#{abonneController.selected.commentaire}" title="#{bundle.ViewAbonneTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_bloquer}"/>
+                        <h:outputText value="#{abonneController.selected.bloquer}" title="#{bundle.ViewAbonneTitle_bloquer}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_societe}"/>
+                        <h:outputText value="#{abonneController.selected.societe}" title="#{bundle.ViewAbonneTitle_societe}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_nom}"/>
+                        <h:outputText value="#{abonneController.selected.nom}" title="#{bundle.ViewAbonneTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_prenom}"/>
+                        <h:outputText value="#{abonneController.selected.prenom}" title="#{bundle.ViewAbonneTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_email}"/>
+                        <h:outputText value="#{abonneController.selected.email}" title="#{bundle.ViewAbonneTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_adresse}"/>
+                        <h:outputText value="#{abonneController.selected.adresse}" title="#{bundle.ViewAbonneTitle_adresse}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_tel}"/>
+                        <h:outputText value="#{abonneController.selected.tel}" title="#{bundle.ViewAbonneTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_header}"/>
+                        <h:outputText value="#{abonneController.selected.header}" title="#{bundle.ViewAbonneTitle_header}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_footer}"/>
+                        <h:outputText value="#{abonneController.selected.footer}" title="#{bundle.ViewAbonneTitle_footer}"/>
+                        <h:outputText value="#{bundle.ViewAbonneLabel_id}"/>
+                        <h:outputText value="#{abonneController.selected.id}" title="#{bundle.ViewAbonneTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AbonneViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DemmandeItemViewDlg" widgetVar="DemmandeItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDemmandeItemTitle}">
+            <h:form id="DemmandeItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demmandeItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_demmande}"/>
+                        <h:outputText value="#{demmandeItemController.selected.demmande}" title="#{bundle.ViewDemmandeItemTitle_demmande}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_magasin}"/>
+                        <h:outputText value="#{demmandeItemController.selected.magasin}" title="#{bundle.ViewDemmandeItemTitle_magasin}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_qte}"/>
+                        <h:outputText value="#{demmandeItemController.selected.qte}" title="#{bundle.ViewDemmandeItemTitle_qte}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_qteLivree}"/>
+                        <h:outputText value="#{demmandeItemController.selected.qteLivree}" title="#{bundle.ViewDemmandeItemTitle_qteLivree}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_prix}"/>
+                        <h:outputText value="#{demmandeItemController.selected.prix}" title="#{bundle.ViewDemmandeItemTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_qteAvoir}"/>
+                        <h:outputText value="#{demmandeItemController.selected.qteAvoir}" title="#{bundle.ViewDemmandeItemTitle_qteAvoir}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_produit}"/>
+                        <h:outputText value="#{demmandeItemController.selected.produit}" title="#{bundle.ViewDemmandeItemTitle_produit}"/>
+                        <h:outputText value="#{bundle.ViewDemmandeItemLabel_id}"/>
+                        <h:outputText value="#{demmandeItemController.selected.id}" title="#{bundle.ViewDemmandeItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DemmandeItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

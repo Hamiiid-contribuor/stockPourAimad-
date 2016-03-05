@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReceptionViewDlg" widgetVar="ReceptionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewReceptionTitle}">
+            <h:form id="ReceptionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{receptionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewReceptionLabel_userTraceForTransaction}"/>
+                        <h:outputText value="#{receptionController.selected.userTraceForTransaction}" title="#{bundle.ViewReceptionTitle_userTraceForTransaction}"/>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_responsable}"/>
+                        <h:outputText value="#{receptionController.selected.responsable}" title="#{bundle.ViewReceptionTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_commande}"/>
+                        <h:outputText value="#{receptionController.selected.commande}" title="#{bundle.ViewReceptionTitle_commande}"/>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_commentaire}"/>
+                        <h:outputText value="#{receptionController.selected.commentaire}" title="#{bundle.ViewReceptionTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_dateReception}"/>
+                        <h:outputText value="#{receptionController.selected.dateReception}" title="#{bundle.ViewReceptionTitle_dateReception}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_montantTotal}"/>
+                        <h:outputText value="#{receptionController.selected.montantTotal}" title="#{bundle.ViewReceptionTitle_montantTotal}"/>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_fournisseur}"/>
+                        <h:outputText value="#{receptionController.selected.fournisseur}" title="#{bundle.ViewReceptionTitle_fournisseur}"/>
+                        <h:outputText value="#{bundle.ViewReceptionLabel_id}"/>
+                        <h:outputText value="#{receptionController.selected.id}" title="#{bundle.ViewReceptionTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ReceptionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

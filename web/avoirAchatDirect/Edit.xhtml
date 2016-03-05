@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvoirAchatDirectEditDlg" widgetVar="AvoirAchatDirectEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAvoirAchatDirectTitle}">
+            <h:form id="AvoirAchatDirectEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avoirAchatDirectController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAvoirAchatDirectLabel_userTraceForTransaction}" for="userTraceForTransaction" />
+                        <p:selectOneMenu id="userTraceForTransaction" value="#{avoirAchatDirectController.selected.userTraceForTransaction}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
+                                           var="userTraceForTransactionItem"
+                                           itemValue="#{userTraceForTransactionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvoirAchatDirectLabel_dateAvoirAchatDirect}" for="dateAvoirAchatDirect" />
+                        <p:calendar id="dateAvoirAchatDirect" pattern="MM/dd/yyyy" value="#{avoirAchatDirectController.selected.dateAvoirAchatDirect}" title="#{bundle.EditAvoirAchatDirectTitle_dateAvoirAchatDirect}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAvoirAchatDirectLabel_message}" for="message" />
+                        <p:inputText id="message" value="#{avoirAchatDirectController.selected.message}" title="#{bundle.EditAvoirAchatDirectTitle_message}" />
+                        <p:outputLabel value="#{bundle.EditAvoirAchatDirectLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{avoirAchatDirectController.selected.montant}" title="#{bundle.EditAvoirAchatDirectTitle_montant}" />
+                        <p:outputLabel value="#{bundle.EditAvoirAchatDirectLabel_achatDirect}" for="achatDirect" />
+                        <p:selectOneMenu id="achatDirect" value="#{avoirAchatDirectController.selected.achatDirect}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{achatDirectController.itemsAvailableSelectOne}"
+                                           var="achatDirectItem"
+                                           itemValue="#{achatDirectItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvoirAchatDirectLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{avoirAchatDirectController.selected.id}" title="#{bundle.EditAvoirAchatDirectTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avoirAchatDirectController.update}" value="#{bundle.Save}" update="display,:AvoirAchatDirectListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AvoirAchatDirectEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AvoirAchatDirectEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

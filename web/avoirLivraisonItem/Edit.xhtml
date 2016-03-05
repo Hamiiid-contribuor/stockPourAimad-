@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvoirLivraisonItemEditDlg" widgetVar="AvoirLivraisonItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAvoirLivraisonItemTitle}">
+            <h:form id="AvoirLivraisonItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avoirLivraisonItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAvoirLivraisonItemLabel_stock}" for="stock" />
+                        <p:selectOneMenu id="stock" value="#{avoirLivraisonItemController.selected.stock}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
+                                           var="stockItem"
+                                           itemValue="#{stockItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvoirLivraisonItemLabel_avoirLivraison}" for="avoirLivraison" />
+                        <p:selectOneMenu id="avoirLivraison" value="#{avoirLivraisonItemController.selected.avoirLivraison}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{avoirLivraisonController.itemsAvailableSelectOne}"
+                                           var="avoirLivraisonItem"
+                                           itemValue="#{avoirLivraisonItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvoirLivraisonItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{avoirLivraisonItemController.selected.produit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvoirLivraisonItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{avoirLivraisonItemController.selected.qte}" title="#{bundle.EditAvoirLivraisonItemTitle_qte}" />
+                        <p:outputLabel value="#{bundle.EditAvoirLivraisonItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{avoirLivraisonItemController.selected.id}" title="#{bundle.EditAvoirLivraisonItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avoirLivraisonItemController.update}" value="#{bundle.Save}" update="display,:AvoirLivraisonItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AvoirLivraisonItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AvoirLivraisonItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

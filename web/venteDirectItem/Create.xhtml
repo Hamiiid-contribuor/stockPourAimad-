@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VenteDirectItemCreateDlg" widgetVar="VenteDirectItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVenteDirectItemTitle}">
+            <h:form id="VenteDirectItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{venteDirectItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_magasin}" for="magasin" />
+                        <p:selectOneMenu id="magasin" value="#{venteDirectItemController.selected.magasin}" >
+                            <f:selectItems value="#{magasinController.itemsAvailableSelectOne}"
+                                           var="magasinItem"
+                                           itemValue="#{magasinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_venteDirect}" for="venteDirect" />
+                        <p:selectOneMenu id="venteDirect" value="#{venteDirectItemController.selected.venteDirect}" >
+                            <f:selectItems value="#{venteDirectController.itemsAvailableSelectOne}"
+                                           var="venteDirectItem"
+                                           itemValue="#{venteDirectItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{venteDirectItemController.selected.produit}" >
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_qte}" for="qte" />
+                        <p:inputText id="qte" value="#{venteDirectItemController.selected.qte}" title="#{bundle.CreateVenteDirectItemTitle_qte}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{venteDirectItemController.selected.prix}" title="#{bundle.CreateVenteDirectItemTitle_prix}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_qteAvoir}" for="qteAvoir" />
+                        <p:inputText id="qteAvoir" value="#{venteDirectItemController.selected.qteAvoir}" title="#{bundle.CreateVenteDirectItemTitle_qteAvoir}" />
+                        <p:outputLabel value="#{bundle.CreateVenteDirectItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{venteDirectItemController.selected.id}" title="#{bundle.CreateVenteDirectItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{venteDirectItemController.create}" value="#{bundle.Save}" update="display,:VenteDirectItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'VenteDirectItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VenteDirectItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

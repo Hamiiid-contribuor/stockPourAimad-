@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AchatDirectItemViewDlg" widgetVar="AchatDirectItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAchatDirectItemTitle}">
+            <h:form id="AchatDirectItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{achatDirectItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_achatDirect}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.achatDirect}" title="#{bundle.ViewAchatDirectItemTitle_achatDirect}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_produit}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.produit}" title="#{bundle.ViewAchatDirectItemTitle_produit}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_qte}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.qte}" title="#{bundle.ViewAchatDirectItemTitle_qte}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_prix}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.prix}" title="#{bundle.ViewAchatDirectItemTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_qteAvoir}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.qteAvoir}" title="#{bundle.ViewAchatDirectItemTitle_qteAvoir}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_stock}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.stock}" title="#{bundle.ViewAchatDirectItemTitle_stock}"/>
+                        <h:outputText value="#{bundle.ViewAchatDirectItemLabel_id}"/>
+                        <h:outputText value="#{achatDirectItemController.selected.id}" title="#{bundle.ViewAchatDirectItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AchatDirectItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

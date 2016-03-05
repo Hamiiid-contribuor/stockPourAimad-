@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCommandeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <f:view>
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <h:form id="FilterForm">
+                                <p:fieldset legend="Criteres de recherche" style="margin-bottom:20px" toggleable="true" toggleSpeed="500">
+                                    <p:panelGrid columns="12">
+                                        <p:outputLabel value="#{bundle.Reference}:" for="ref" style="display:block;width:60px"/>
+                                        <p:inputText id="ref" style="display:block;width:80px" value="#{commandeController.critereObj.reference}" title="#{bundle.Reference}" />
+                                        <p:outputLabel style="display:block;width:40px" value="#{bundle.CreateCommandeLabel_projet}" for="projet" />
+                                        <p:selectOneMenu id="projet" value="#{commandeController.critereObj.projet}" style="display:block;width:100px" >
+                                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                            <f:selectItems value="#{projetController.findProjetByAbonne()}"
+                                                           var="projetItem"
+                                                           itemValue="#{projetItem}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
+                                        <p:selectOneMenu id="responsable" value="#{commandeController.critereObj.responsable}" style="display:block;width:100px">
+                                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                            <f:selectItems value="#{responsableController.findByAbonne()}"
+                                                           var="responsableItem"
+                                                           itemValue="#{responsableItem}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateCommandeLabel_fournisseur}" for="fournisseur" />
+                                        <p:selectOneMenu id="fournisseur" value="#{commandeController.critereObj.fournisseur}" style="display:block;width:100px">
+                                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                            <f:selectItems value="#{fournisseurController.findFournisseurByAbonne(userController.selected.abonne,0)}"
+                                                           var="fournisseurItem"
+                                                           itemValue="#{fournisseurItem}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.Paiement}" style="display:block;width:60px" for="paiement" />
+                                        <p:selectOneMenu id="paiement" value="#{commandeController.etatPaiement}" style="display:block;width:60px" >
+                                            <f:selectItem  itemValue="-1" itemLabel="--Select--"/>
+                                            <f:selectItem itemValue="0" itemLabel="Non"/>
+                                            <f:selectItem itemValue="1" itemLabel="En cour"/>
+                                            <f:selectItem itemValue="2" itemLabel="Oui"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.EtatReception}" style="display:block;width:60px" for="etatRec" />
+                                        <p:selectOneMenu id="etatRec" value="#{commandeController.etatReception}" style="display:block;width:60px">
+                                            <f:selectItem  itemValue="-1" itemLabel="--Select--" />
+                                            <f:selectItem itemValue="0" itemLabel="Non"/>
+                                            <f:selectItem itemValue="1" itemLabel="En cour"/>
+                                            <f:selectItem itemValue="2" itemLabel="Oui"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="9">
+                                        <p:outputLabel value="#{bundle.DateCommandeMin}" style="display:block;width:60px" for="dateCommandeMin" />
+                                        <p:calendar id="dateCommandeMin" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateCommandeMin}" title="#{bundle.DateCommandeMin}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.DateCommandeMax}" style="display:block;width:60px" for="dateCommandeMax" />
+                                        <p:calendar id="dateCommandeMax" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateCommandeMax}" title="#{bundle.DateCommandeMax}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.DateEcheanceMin}" style="display:block;width:85px" for="dateEcheanceMin" />
+                                        <p:calendar id="dateEcheanceMin" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateEcheanceMin}" title="#{bundle.DateCommandeMin}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.DateEcheanceMax}" style="display:block;width:85px" for="dateEcheanceMax" />
+                                        <p:calendar id="dateEcheanceMax" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateEcheanceMax}" title="#{bundle.DateCommandeMax}"  showOn="button"/>
+                                        <p:commandButton value="Valider" actionListener="#{commandeController.findByCriteres(0)}" update=":CommandeListForm:datalist,:CommandeItemListForm,:PaiementCommandeListForm,:ReceptionListForm,:ReceptionItemListForm,:growl"  
+                                                         />
+                                    </p:panelGrid>
+                                </p:fieldset>   
+                            </h:form>
+
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:form id="CommandeListForm">
+                                <p:panel header="#{bundle.ListCommandeTitle}" style="margin-top: 0">
+                                    <p:dataTable id="datalist" value="#{commandeController.items}" var="item"
+                                                 scrollable="true" scrollHeight="170"
+                                                 resizableColumns="true" style="margin-top: 0"
+                                                 >
+                                        <p:column  width="50">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.Reference}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.reference}"/>
+                                        </p:column>
+                                        <p:column width="55">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_dateCommande}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.dateCommande}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column width="55">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_dateEchance}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.dateEchance}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column width="70">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_fournisseur}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fournisseur.nom}"/>
+                                        </p:column>
+                                        <p:column width="50">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_montantTotal}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.montantTotal}"/>
+                                        </p:column>
+                                        <p:column width="50" style="font-weight: bold; background-color: #{item.paiement==0? 'hotpink': item.paiement>=item.montantTotal? 'green':'gold'}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_paiement}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.paiement}"/>
+                                        </p:column>
+                                        <p:column width="40">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_paiementEffetEnCour}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.paiementEffetEnCour}"/>
+                                        </p:column>
+                                        <p:column width="50" style="font-weight: bold; background-color: #{item.etatReception==0? 'hotpink': item.etatReception==1? 'gold':'green'}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_etatReception}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.etatReception==0? 'Non': item.etatReception==1? 'En cours':'Oui'}" />
+                                        </p:column>
+                                        <p:column width="85">
+                                            <f:facet name="header">
+                                                <h:outputText value="Detail"/>
+                                            </f:facet>
+                                            <p:commandButton title="Detail Commande" icon="fa-ellipsis-h"  actionListener="#{commandeController.findCommadeItemsByIdCmd(item)}" update=":CommandeItemListForm,:PaiementCommandeListForm,:ReceptionListForm,:ReceptionItemListForm" />
+                                            <p:commandButton title="Detail Paiement" icon="fa fa-dollar" actionListener="#{commandeController.findPaiementByCommande(item)}" update=":PaiementCommandeListForm,:CommandeItemListForm,:ReceptionListForm,:ReceptionItemListForm" />
+                                            <p:commandButton title="Detail Reception" icon="fa fa-shopping-cart" actionListener="#{commandeController.findReceptionByCommande(item)}" update=":ReceptionListForm,:ReceptionItemListForm,:PaiementCommandeListForm,:CommandeItemListForm" />
+                                        </p:column>
+                                        <p:column width="140">
+                                            <f:facet name="header">
+                                                <h:outputText value="Action"/>
+                                            </f:facet>
+                
+                                            <p:commandButton title="Action Paiement" icon="fa fa-dollar" actionListener="#{paiementCommandeController.preparePaiement(item)}" update=":PaiementCommandeCreateDlg" 
+                                                             oncomplete="PF('PaiementCommandeCreateDialog').show()" />
+                                            <p:commandButton title="Action Reception" icon="fa fa-shopping-cart" action="#{receptionController.forwardToReceptionCreate(item)}"/>
+                                            <p:commandButton title="Update Commande" icon="ui-icon-pencil"  actionListener="#{commandeController.update(item)}" 
+                                                             update=":CommandeEditForm" oncomplete="PF('CommandeEditDialog').show()"/>
+                                            <p:commandButton title="Delete Commande" icon="ui-icon-trash"  actionListener="#{commandeController.destroy(item)}" 
+                                                             update=":growl,:PaiementCommandeListForm:datalist, :CommandeItemListForm:datalist,
+                                                             :ReceptionListForm:datalist, :ReceptionItemListForm:datalist,
+                                                             :CommandeListForm:datalist">
+                                                        <p:confirm header="Confirmation" message="#{'Voullez vous vraiment supprimer la commande: '.concat(item.reference)}" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+                                            <p:confirmDialog global="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                            </p:confirmDialog>
+                                        </p:column>
+                                        <p:column width="25">
+                                            <f:facet name="header">
+                                                <h:outputText value="Rec"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.montantTotalReception}"/>
+                                        </p:column>
+                                        <p:column width="30">
+                                            <f:facet name="header">
+                                                <h:outputText value="Avoir"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.montantTotalAvoir}"/>
+                                        </p:column>
+                                        <p:column width="20">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_tva}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tva}"/>
+                                        </p:column>
+                                        <p:column width="50">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_responsable}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.responsable.nom}"/>
+                                        </p:column>
+                                        <p:column width="300">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeTitle_commentaire}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.commentaire}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <h:form id="CommandeItemListForm">
+                                <p:panel rendered="#{commandeController.selected.commandeItems.size()>0 and commandeController.booleanSwitch==1}" header="Lignes De commande">
+                                    <p:dataTable id="datalist" value="#{commandeController.selected.commandeItems}" var="cItem" 
+                                                 scrollable="true" scrollHeight="170">
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeItemTitle_produit}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cItem.produit.libelle}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeItemTitle_prix}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cItem.prix}"/>
+                                        </p:column>
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeItemTitle_qte}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cItem.qte}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeItemTitle_qteRecu}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cItem.qteRecu}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListCommandeItemTitle_qteAvoir}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cItem.qteAvoir}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ACTION"/> 
+                                            </f:facet>
+                                            <p:commandButton title="Delete" icon="ui-icon-trash"  actionListener="#{commandeController.removeCommandeItem(cItem)}" 
+                                                             update=":growl,:PaiementCommandeListForm:datalist, :CommandeItemListForm:datalist,
+                                                             :ReceptionListForm:datalist, :ReceptionItemListForm:datalist,
+                                                             :CommandeListForm:datalist, :growl">
+                                                        <p:confirm header="Confirmation" message="Voullez vous vraiment supprimé cette ligne de commande?" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+                                            <p:confirmDialog global="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                            </p:confirmDialog>        
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:form>
+                            <h:form id="PaiementCommandeListForm">
+                                <p:panel header="Paiements" rendered="#{commandeController.selected.paiementCommandes.size()>0 and commandeController.booleanSwitch==2}">
+                                    <p:dataTable id="datalist" value="#{commandeController.selected.paiementCommandes}" var="pItem"
+                                                 scrollable="true"  scrollHeight="140"
+                                                 resizableColumns="true">
+
+                                        <p:column width="15">
+                                            <f:facet name="header">
+                                                <h:outputText value=""/>
+                                            </f:facet>
+                                            <p:selectBooleanCheckbox value="#{pItem.encaisser}" rendered="#{pItem.mode != 1}">
+                                                <p:ajax listener="#{paiementCommandeController.checkBox(pItem)}" oncomplete="PF('EncaissementDialog').show()"/>
+                                            </p:selectBooleanCheckbox>
+                                        </p:column>
+
+                                        <p:column width="40">
+                                            <f:facet name="header">
+                                                <h:outputText value="MNT"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pItem.montant}"/>
+                                        </p:column>
+                                        <p:column width="30">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListPaiementCommandeTitle_mode}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pItem.mode==1?'ESC':pItem.mode==2?'EFT':'CHQU'}"/> 
+                                        </p:column>
+                                        <p:column width="60">
+                                            <f:facet name="header">
+                                                <h:outputText value="Echeance"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pItem.dateEcheance}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column width="55">
+                                            <f:facet name="header">
+                                                <h:outputText value="date"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pItem.datePaiement}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Action"/>
+                                            </f:facet>
+                                            <p:commandButton title="Detail" icon="fa fa-dollar" actionListener="#{paiementCommandeController.versDetailPaiement(pItem)}" update=":PaiementCommandeViewDlg" oncomplete="PF('PaiementCommandeViewDialog').show()" />
+                                            <p:commandButton title="Delete" icon="ui-icon-trash"  actionListener="#{paiementCommandeController.remove(commandeController.selected,pItem)}" 
+                                                             update=":growl,:PaiementCommandeListForm:datalist, :CommandeItemListForm:datalist,
+                                                             :ReceptionListForm:datalist, :ReceptionItemListForm:datalist,
+                                                             :CommandeListForm:datalist">
+                                                        <p:confirm header="Confirmation" message="Voullez vous vraiment supprimé ce paiement?" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+                                            <p:confirmDialog global="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                            </p:confirmDialog>                                             
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:form id="ReceptionListForm">
+                                <p:panel header="Receptions" rendered="#{commandeController.selected.receptions.size()>0}" style="margin-top: 0">
+                                    <p:dataTable id="datalist" value="#{commandeController.selected.receptions}" var="rItem"
+                                                 scrollable="true"  scrollHeight="100" style="margin-top: 0"  resizableColumns="true"
+                                                 >
+                                        <p:column width="60">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionTitle_dateReception}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{rItem.dateReception}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column width="60">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionTitle_montantTotal}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{rItem.montantTotal}"/>
+                                        </p:column>
+                                        <p:column width="85">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionTitle_responsable}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{rItem.responsable.nom}"/>
+                                        </p:column>
+                                        <p:column width="150">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionTitle_commentaire}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{rItem.commentaire}"/>
+                                        </p:column>
+                                        <p:column width="140">
+                                            <f:facet name="header">
+                                                <h:outputText value="Action"/>
+                                            </f:facet>
+                                            <p:commandButton title="Detail" icon="fa fa-dollar" actionListener="#{commandeController.findReceptionItemsByReception(rItem)}" update=":ReceptionItemListForm"/>
+                                            <p:commandButton title="Ajouter Ligne de Reception" icon="ui-icon-plus"  actionListener="#{receptionController.prepareCreate(rItem)}" update="datalist, :ReceptionEditForm" oncomplete="PF('ReceptionEditDialog').show()"/>
+                                            <p:commandButton title="Update" icon="ui-icon-pencil"  actionListener="#{receptionController.prepareCreate(rItem)}" update="datalist, :ReceptionEditForm" oncomplete="PF('ReceptionEditDialog').show()"/>
+                                            <p:commandButton title="Avoir" icon="ui-icon-plus"  action="#{avoirReceptionController.forwardToAvoirReceptionCreate(commandeController.selected,rItem)}" />
+                                            <p:commandButton title="Delete" icon="ui-icon-trash"  actionListener="#{commandeController.removeReception(rItem)}" update=":growl,:PaiementCommandeListForm:datalist, :CommandeItemListForm:datalist,
+                                                             :ReceptionListForm:datalist, :ReceptionItemListForm:datalist,
+                                                             :CommandeListForm:datalist">
+                                                        <p:confirm header="Confirmation" message="Voullez vous vraiment supprimé cette reception?" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+                                            <p:confirmDialog global="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                            </p:confirmDialog>       
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <h:form id="ReceptionItemListForm">
+                                <p:panel header="#{bundle.ListReceptionItemTitle}" rendered="#{commandeController.reception.receptionItems.size()>0}" style="margin-top: 0">
+                                    <p:dataTable id="datalist" value="#{commandeController.reception.receptionItems}" var="riItem"
+                                                 scrollable="true" scrollHeight="80" style="margin-top: 0"
+                                                 >
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionItemTitle_produit}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{riItem.produit.libelle}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionItemTitle_magasin}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{riItem.magasin.nom}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionItemTitle_qte}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{riItem.qte}"/>
+                                        </p:column>
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListReceptionItemTitle_qteAvoir}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{riItem.qteAvoir}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Action"/>
+                                            </f:facet>
+                                            <p:commandButton title="Delete" icon="ui-icon-trash"  actionListener="#{commandeController.removeReceptionItem(riItem)}" 
+                                                             update=":ReceptionListForm:datalist, :ReceptionItemListForm:datalist ,:CommandeListForm:datalist,
+                                                             :CommandeItemListForm:datalist, :growl ">
+                                                 <p:confirm header="Confirmation" message="Voullez vous vraiment supprimé cette ligne de reception?" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+                                            <p:confirmDialog global="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                            </p:confirmDialog>       
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                        </div>
+                    </div>
+                </div>
+            </f:view>
+            <ui:include src="PaiementCommandeCreateDialog.xhtml"/>
+            <ui:include src="PaiementCommandeViewDialog.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="PopUpEncaissement.xhtml"/>
+            <ui:include src="ReceptionEditDialog.xhtml"/>
+            <ui:include src="CommandeItemCreateDialog.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
