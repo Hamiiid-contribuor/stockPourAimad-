@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,6 +21,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Famille implements Serializable {
 
+   
     private static final long serialVersionUID = 1L;
     @Id
     private Long id;
@@ -32,6 +30,9 @@ public class Famille implements Serializable {
     private List<Produit> produits = new ArrayList<>();
     @ManyToOne
     private Abonne abonne;
+    @ManyToOne
+    private SuperFamille superFamille;
+
 
     public Abonne getAbonne() {
         if (abonne == null) {
@@ -59,6 +60,16 @@ public class Famille implements Serializable {
     public void setProduits(List<Produit> produits) {
         this.produits = produits;
     }
+
+    public SuperFamille getSuperFamille() {
+        return superFamille;
+    }
+
+    public void setSuperFamille(SuperFamille superFamille) {
+        this.superFamille = superFamille;
+    }
+    
+    
 
     @Override
     public int hashCode() {

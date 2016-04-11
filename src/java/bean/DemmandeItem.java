@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class DemmandeItem extends ProduitItemWithoutPrix {
 
+    private static final long serialVersionUID = 1L;
+
     private BigDecimal qteLivree;
     private BigDecimal prix;
     private BigDecimal qteAvoir;

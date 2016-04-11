@@ -8,17 +8,22 @@ public class SessionUtil {
   
     private static final SessionUtil instance = new SessionUtil();
     
-   
+  
     private SessionUtil() {
         super();
     }
 
      public static void registerUser(User user){
          setAttribute("user", user);
+         
     }
+     
      public static User getConnectedUser(){
          return (User) getAttribute("user");
     }
+    
+     
+     
     public static SessionUtil getInstance() {
         return instance;
     }
@@ -49,4 +54,6 @@ public class SessionUtil {
             getSession(fc).setAttribute(cle, valeur);
         }
     }
+   
+   
 }

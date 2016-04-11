@@ -83,9 +83,9 @@ public class ProduitFacade extends AbstractFacade<Produit> {
     public List<Produit> findByAbonne(Abonne abonne, int deleted) {
         if (abonne != null && abonne.getId() != null) {
             String request = "SELECT pr FROM Produit pr WHERE pr.abonne.id=" + abonne.getId();
-//            if (deleted != -1) {
-//                request += " and pr.supprimer=" + deleted;
-//            }
+            if (deleted != -1) {
+                request += " and pr.supprimer=" + deleted;
+            }
             System.out.println("List<Produit> findByAbonne ==> " + request);
             return em.createQuery(request).getResultList();
         }
@@ -108,6 +108,8 @@ public class ProduitFacade extends AbstractFacade<Produit> {
     public List<Produit> findProduitByFamille(Famille famille, int deleted) {
         List<Produit> myProduits = new ArrayList();
         if (famille != null) {
+            String requette=findProduitByMagasinAndFamilleRequest(null, famille, deleted);
+            System.out.println("ha requette "+requette);
             List<Object[]> results = em.createQuery(findProduitByMagasinAndFamilleRequest(null, famille, deleted)).getResultList();
             for (Object[] result : results) {
                 Produit produit = new Produit((Long) result[0], (String) result[1], (String) result[2], (String) result[3], (BigDecimal) result[4]);
@@ -130,9 +132,7 @@ public class ProduitFacade extends AbstractFacade<Produit> {
         if (famille != null && famille.getId() != null) {
             request += " AND pr.famille.id=" + famille.getId();
         }
-//        if (deleted != -1) {
-//            request += " AND pr.supprimer=" + deleted;
-//        }
+        
         System.out.println(" findProduitByMagasinAndFamilleRequest=> request=" + request);
         return (request);
     }

@@ -16,8 +16,17 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PaiementDemmande extends Paiement {
 
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private Demmande demmande;
+
+    public Demmande getDemmande() {
+        if (demmande == null) {
+            demmande = new Demmande();
+        }
+        return demmande;
+    }
 
     @Override
     public int hashCode() {
@@ -26,12 +35,12 @@ public class PaiementDemmande extends Paiement {
         return hash;
     }
 
-    public Demmande getDemmande() {
-        return demmande;
-    }
-
     public void setDemmande(Demmande demmande) {
         this.demmande = demmande;
+    }
+
+    public boolean isEncaisser() {
+        return encaisser;
     }
 
     @Override

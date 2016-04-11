@@ -26,9 +26,9 @@ public class ResponsableFacade extends AbstractFacade<Responsable> {
         String request = "SELECT resp FROM Responsable resp WHERE resp.abonne.id=" + abonne.getId();
         System.out.println("downloading Responsable ...");
         System.out.println("requete=" + request);
-//        if (deleted != -1) {
-//            request += " AND resp.supprimer=" + deleted;
-//        }
+        if (deleted != -1) {
+            request += " AND resp.supprimer=" + deleted;
+        }
         return em.createQuery(request).getResultList();
     }
 

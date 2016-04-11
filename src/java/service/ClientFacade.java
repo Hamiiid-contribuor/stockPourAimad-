@@ -45,9 +45,7 @@ public class ClientFacade extends AbstractFacade<Client> {
     public List<Client> findByAbonne(Abonne abonne, int deleted) {
         if (abonne != null && abonne.getId() != null) {
             String requette = "SELECT cl FROM Client cl WHERE cl.abonne.id=" + abonne.getId();
-//            if (deleted != -1) {
-//                requette += " and cl.supprimer=" + deleted;
-//            }
+            
             System.out.println("downloading Client...");
             System.out.println(requette);
             return em.createQuery(requette).getResultList();

@@ -7,6 +7,7 @@ package service;
 
 import bean.Abonne;
 import bean.Famille;
+import bean.SuperFamille;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -44,7 +45,7 @@ public class FamilleFacade extends AbstractFacade<Famille> {
         return new ArrayList();
 
     }
-    
+
     public Famille cloneFamille(Famille familleToBeCloned) {
         Famille famille = new Famille();
         famille.setId(familleToBeCloned.getId());
@@ -61,4 +62,9 @@ public class FamilleFacade extends AbstractFacade<Famille> {
         super(Famille.class);
     }
 
+      public List<Famille> findFamilleBySuperFamille(SuperFamille superFamille) {
+
+        String requette = "SELECT f FROM Famille f WHERE f.superFamille.id = " + superFamille.getId();
+        return em.createQuery(requette).getResultList();
+    }
 }

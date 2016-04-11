@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public   class ProduitItemWithoutPrix implements Serializable {
+public  class ProduitItemWithoutPrix implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

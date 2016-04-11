@@ -11,13 +11,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -35,7 +33,7 @@ public class DevisDemmande implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDevisDemmande;
     private BigDecimal montantTotal;
-    private BigDecimal tva;
+    private BigDecimal tva = new BigDecimal(20);
     @ManyToOne
     private Client client;
     @OneToMany(mappedBy = "devisDemmande")
@@ -44,13 +42,10 @@ public class DevisDemmande implements Serializable {
     private Abonne abonne;
     @ManyToOne
     private Projet projet;
-    @OneToOne
-    private Demmande demande;
     @ManyToOne
     private Responsable responsable;
-    
+   
 
-  
     public Responsable getResponsable() {
         if (responsable == null) {
             responsable = new Responsable();
@@ -73,17 +68,7 @@ public class DevisDemmande implements Serializable {
         this.tva = tva;
     }
 
-    public Demmande getDemande() {
-        if (demande == null) {
-            demande = new Demmande();
-        }
-        return demande;
-    }
-
-    public void setDemande(Demmande demande) {
-        this.demande = demande;
-    }
-
+  
     public Long getId() {
         return id;
     }

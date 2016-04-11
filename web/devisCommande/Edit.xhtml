@@ -12,13 +12,7 @@
             <h:form id="DevisCommandeEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{devisCommandeController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDevisCommandeLabel_userTraceForTransaction}" for="userTraceForTransaction" />
-                        <p:selectOneMenu id="userTraceForTransaction" value="#{devisCommandeController.selected.userTraceForTransaction}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
-                                           var="userTraceForTransactionItem"
-                                           itemValue="#{userTraceForTransactionItem}"/>
-                        </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.EditDevisCommandeLabel_responsable}" for="responsable" />
                         <p:selectOneMenu id="responsable" value="#{devisCommandeController.selected.responsable}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -26,16 +20,16 @@
                                            var="responsableItem"
                                            itemValue="#{responsableItem}"/>
                         </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.EditDevisCommandeLabel_tva}" for="tva" />
                         <p:inputText id="tva" value="#{devisCommandeController.selected.tva}" title="#{bundle.EditDevisCommandeTitle_tva}" />
-                        <p:outputLabel value="#{bundle.EditDevisCommandeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{devisCommandeController.selected.id}" title="#{bundle.EditDevisCommandeTitle_id}" />
+                      
                         <p:outputLabel value="#{bundle.EditDevisCommandeLabel_commentaire}" for="commentaire" />
                         <p:inputText id="commentaire" value="#{devisCommandeController.selected.commentaire}" title="#{bundle.EditDevisCommandeTitle_commentaire}" />
+                       
                         <p:outputLabel value="#{bundle.EditDevisCommandeLabel_dateDevisCommande}" for="dateDevisCommande" />
                         <p:calendar id="dateDevisCommande" pattern="MM/dd/yyyy" value="#{devisCommandeController.selected.dateDevisCommande}" title="#{bundle.EditDevisCommandeTitle_dateDevisCommande}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditDevisCommandeLabel_montantTotal}" for="montantTotal" />
-                        <p:inputText id="montantTotal" value="#{devisCommandeController.selected.montantTotal}" title="#{bundle.EditDevisCommandeTitle_montantTotal}" />
+                       
                         <p:outputLabel value="#{bundle.EditDevisCommandeLabel_fournisseur}" for="fournisseur" />
                         <p:selectOneMenu id="fournisseur" value="#{devisCommandeController.selected.fournisseur}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -43,13 +37,7 @@
                                            var="fournisseurItem"
                                            itemValue="#{fournisseurItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDevisCommandeLabel_abonne}" for="abonne" />
-                        <p:selectOneMenu id="abonne" value="#{devisCommandeController.selected.abonne}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
-                                           var="abonneItem"
-                                           itemValue="#{abonneItem}"/>
-                        </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.EditDevisCommandeLabel_projet}" for="projet" />
                         <p:selectOneMenu id="projet" value="#{devisCommandeController.selected.projet}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -57,13 +45,7 @@
                                            var="projetItem"
                                            itemValue="#{projetItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDevisCommandeLabel_commande}" for="commande" />
-                        <p:selectOneMenu id="commande" value="#{devisCommandeController.selected.commande}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{commandeController.itemsAvailableSelectOne}"
-                                           var="commandeItem"
-                                           itemValue="#{commandeItem}"/>
-                        </p:selectOneMenu>
+                       
                     </p:panelGrid>
                     <p:commandButton actionListener="#{devisCommandeController.update}" value="#{bundle.Save}" update="display,:DevisCommandeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DevisCommandeEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DevisCommandeEditDialog.hide()"/>

@@ -35,10 +35,26 @@ public class Fournisseur implements Serializable {
     private List<Commande> commandes;
     @ManyToOne
     private Abonne abonne;
+    private boolean modifier;
+    private boolean supprimer;
     private boolean bloquer;
     private String detailBloquage;
 
-  
+    public boolean isModifier() {
+        return modifier;
+    }
+
+    public void setModifier(boolean modifier) {
+        this.modifier = modifier;
+    }
+
+    public boolean isSupprimer() {
+        return supprimer;
+    }
+
+    public void setSupprimer(boolean supprimer) {
+        this.supprimer = supprimer;
+    }
 
     public boolean isBloquer() {
         return bloquer;

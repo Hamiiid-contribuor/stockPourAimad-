@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -23,7 +22,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public   class Paiement implements Serializable {
+
+public class Paiement implements Serializable {
 
     protected static final long serialVersionUID = 1L;
     @Id

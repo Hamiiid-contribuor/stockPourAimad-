@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementAbonneViewDlg" widgetVar="PaiementAbonneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaiementAbonneTitle}">
+            <h:form id="PaiementAbonneViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementAbonneController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPaiementAbonneLabel_abonne}"/>
+                        <h:outputText value="#{paiementAbonneController.selected.abonne}" title="#{bundle.ViewPaiementAbonneTitle_abonne}"/>
+                        <h:outputText value="#{bundle.ViewPaiementAbonneLabel_message}"/>
+                        <h:outputText value="#{paiementAbonneController.selected.message}" title="#{bundle.ViewPaiementAbonneTitle_message}"/>
+                        <h:outputText value="#{bundle.ViewPaiementAbonneLabel_montant}"/>
+                        <h:outputText value="#{paiementAbonneController.selected.montant}" title="#{bundle.ViewPaiementAbonneTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewPaiementAbonneLabel_datepaiement}"/>
+                        <h:outputText value="#{paiementAbonneController.selected.datepaiement}" title="#{bundle.ViewPaiementAbonneTitle_datepaiement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaiementAbonneLabel_id}"/>
+                        <h:outputText value="#{paiementAbonneController.selected.id}" title="#{bundle.ViewPaiementAbonneTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PaiementAbonneViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

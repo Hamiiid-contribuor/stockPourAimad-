@@ -45,6 +45,24 @@ public class Livraison implements Serializable {
     private Responsable responsable;
     @OneToMany(mappedBy = "livraison")
     private List<AvoirLivraison> avoirLivraisons;
+    private boolean modifier;
+    private boolean supprimer;
+  
+    public boolean isModifier() {
+        return modifier;
+    }
+
+    public void setModifier(boolean modifier) {
+        this.modifier = modifier;
+    }
+
+    public boolean isSupprimer() {
+        return supprimer;
+    }
+
+    public void setSupprimer(boolean supprimer) {
+        this.supprimer = supprimer;
+    }
 
     public List<AvoirLivraison> getAvoirLivraisons() {
         if (avoirLivraisons == null) {

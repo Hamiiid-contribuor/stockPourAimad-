@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PaiementVenteDirect extends Paiement {
 
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private VenteDirect venteDirect;
 

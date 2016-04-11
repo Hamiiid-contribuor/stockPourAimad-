@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMessageTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="FilterForm">  <!-- debut blassa dial recherche --> 
+                <p:fieldset legend="Criteres de recherche" style="margin-bottom:20px" toggleable="true" toggleSpeed="500">
+                    <p:panelGrid columns="12">
+                        <p:outputLabel value="Date Envoi Min}" style="display:block;width:60px" for="dateEnvoiMin" />
+                        <p:calendar id="dateEnvoiMin" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{messageController.dateEnvoiMin}" title="Date Envoi Min"  showOn="button"/>
+                        <p:outputLabel value="Date Envoi Max" style="display:block;width:60px" for="DateEnvoiMax" />
+                        <p:calendar id="DateEnvoiMax" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{messageController.dateEnvoiMax}" title="Date Envoi Max"  showOn="button"/>
+
+                        <p:outputLabel style="display:block;width:40px" value="Envoye Pour" for="envoyePour" />
+                        <p:selectOneMenu id="envoyePour" value="#{messageController.envoyePour}" style="display:block;width:100px" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{messageController.findUserByAbonne()}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel style="display:block;width:40px" value="Envoye Par" for="envoyePar" />
+                        <p:selectOneMenu id="envoyePar" value="#{messageController.envoyePar}" style="display:block;width:100px" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{messageController.findUserByAbonne()}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Valider"  actionListener="#{messageController.findByCreteria()}" update=":MessageListForm:datalist,:MessageListForm,:growl" />
+                        <p:commandButton value="Ma Boite de Reception"  actionListener="#{messageController.findMyBoite()}" update=":MessageListForm:datalist,:MessageListForm,:growl" />
+                    </p:panelGrid>
+
+                </p:fieldset>   
+            </h:form> 
+            <h:form id="MessageListForm" style="overflow: scroll; border: 1px solid #ccc; height: 450px">
+                <p:panel header="List Message Reception" >
+                    <p:dataTable id="datalist" value="#{messageController.messageReceptions}" var="item"
+                                 selectionMode="single" selection="#{messageController.seleMessageReception}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 scrollRows="10"
+
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton"/>
+                        <p:ajax event="rowUnselect" update="createButton"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id Message Reception"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id Message"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="User"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message.user}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Distinataire"/>
+                            </f:facet>
+                            <h:outputText value="#{item.distinataire}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMessageTitle_objet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message.objet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMessageTitle_dateEnvoi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message.dateEnvoi}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Detail MessageReception"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detail}"/>
+                        </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Detail Message"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message.detail}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{messageController.prepareCreate}" update=":MessageCreateForm" oncomplete="PF('MessageCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" actionListener="#{messageController.updateMessageinfo()}" value="#{bundle.View}"  oncomplete="PF('MessageViewDialog').show()"  disabled="#{empty messageController.selected}" update=":MessageViewForm,MessageListForm,datalist" />
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{messageController.destroy}" update=":growl,datalist" disabled="#{empty messageController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

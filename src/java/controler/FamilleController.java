@@ -32,7 +32,9 @@ public class FamilleController implements Serializable {
     private Famille selected;
 
     public List<Famille> findFamilleByAbonne(Abonne abonne) {
+        System.out.println(SessionUtil.getConnectedUser().getAbonne().getFamilles());
         return SessionUtil.getConnectedUser().getAbonne().getFamilles();
+        
     }
 
     public FamilleController() {

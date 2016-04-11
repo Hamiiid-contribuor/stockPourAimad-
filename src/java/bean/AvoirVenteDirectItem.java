@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class AvoirVenteDirectItem extends ProduitItemWithoutPrix {
 
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private AvoirVenteDirect avoirVenteDirect;
     @ManyToOne

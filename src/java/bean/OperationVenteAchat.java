@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class OperationVenteAchat implements Serializable {
+public   class OperationVenteAchat implements Serializable {
 
     protected static final long serialVersionUID = 1L;
     @Id

@@ -36,9 +36,7 @@ public class ProjetFacade extends AbstractFacade<Projet> {
         if (abonne != null && abonne.getId() != null) {
             String request = "SELECT pr FROM Projet pr WHERE pr.abonne.id=" + abonne.getId();
             System.out.println("downloading Projet ...");
-//            if (deleted != -1) {
-//                request += " AND pr.supprimer=" + deleted;
-//            }
+         
             System.out.println(request);
             return em.createQuery(request).getResultList();
         }

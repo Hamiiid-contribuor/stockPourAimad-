@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementAbonneEditDlg" widgetVar="PaiementAbonneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPaiementAbonneTitle}">
+            <h:form id="PaiementAbonneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementAbonneController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPaiementAbonneLabel_abonne}" for="abonne" />
+                        <p:selectOneMenu id="abonne" value="#{paiementAbonneController.selected.abonne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
+                                           var="abonneItem"
+                                           itemValue="#{abonneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPaiementAbonneLabel_message}" for="message" />
+                        <p:inputText id="message" value="#{paiementAbonneController.selected.message}" title="#{bundle.EditPaiementAbonneTitle_message}" />
+                        <p:outputLabel value="#{bundle.EditPaiementAbonneLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{paiementAbonneController.selected.montant}" title="#{bundle.EditPaiementAbonneTitle_montant}" />
+                        <p:outputLabel value="#{bundle.EditPaiementAbonneLabel_datepaiement}" for="datepaiement" />
+                        <p:calendar id="datepaiement" pattern="MM/dd/yyyy" value="#{paiementAbonneController.selected.datepaiement}" title="#{bundle.EditPaiementAbonneTitle_datepaiement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPaiementAbonneLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{paiementAbonneController.selected.id}" title="#{bundle.EditPaiementAbonneTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paiementAbonneController.update}" value="#{bundle.Save}" update="display,:PaiementAbonneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaiementAbonneEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaiementAbonneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

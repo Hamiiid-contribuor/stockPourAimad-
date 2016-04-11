@@ -28,7 +28,7 @@
                                                            var="projetItem"
                                                            itemValue="#{projetItem}"/>
                                         </p:selectOneMenu>
-                                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
+                                        <p:outputLabel style="display:block;width:80px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
                                         <p:selectOneMenu id="responsable" value="#{commandeController.critereObj.responsable}" style="display:block;width:100px">
                                             <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
                                             <f:selectItems value="#{responsableController.findByAbonne()}"
@@ -59,13 +59,13 @@
                                     </p:panelGrid>
                                     <p:panelGrid columns="9">
                                         <p:outputLabel value="#{bundle.DateCommandeMin}" style="display:block;width:60px" for="dateCommandeMin" />
-                                        <p:calendar id="dateCommandeMin" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateCommandeMin}" title="#{bundle.DateCommandeMin}"  showOn="button"/>
+                                        <p:calendar id="dateCommandeMin" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{commandeController.dateCommandeMin}" title="#{bundle.DateCommandeMin}"  showOn="button"/>
                                         <p:outputLabel value="#{bundle.DateCommandeMax}" style="display:block;width:60px" for="dateCommandeMax" />
-                                        <p:calendar id="dateCommandeMax" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateCommandeMax}" title="#{bundle.DateCommandeMax}"  showOn="button"/>
+                                        <p:calendar id="dateCommandeMax" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{commandeController.dateCommandeMax}" title="#{bundle.DateCommandeMax}"  showOn="button"/>
                                         <p:outputLabel value="#{bundle.DateEcheanceMin}" style="display:block;width:85px" for="dateEcheanceMin" />
-                                        <p:calendar id="dateEcheanceMin" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateEcheanceMin}" title="#{bundle.DateCommandeMin}"  showOn="button"/>
+                                        <p:calendar id="dateEcheanceMin" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{commandeController.dateEcheanceMin}" title="#{bundle.DateCommandeMin}"  showOn="button"/>
                                         <p:outputLabel value="#{bundle.DateEcheanceMax}" style="display:block;width:85px" for="dateEcheanceMax" />
-                                        <p:calendar id="dateEcheanceMax" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.dateEcheanceMax}" title="#{bundle.DateCommandeMax}"  showOn="button"/>
+                                        <p:calendar id="dateEcheanceMax" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{commandeController.dateEcheanceMax}" title="#{bundle.DateCommandeMax}"  showOn="button"/>
                                         <p:commandButton value="Valider" actionListener="#{commandeController.findByCriteres(0)}" update=":CommandeListForm:datalist,:CommandeItemListForm,:PaiementCommandeListForm,:ReceptionListForm,:ReceptionItemListForm,:growl"  
                                                          />
                                     </p:panelGrid>
@@ -79,7 +79,7 @@
                             <h:form id="CommandeListForm">
                                 <p:panel header="#{bundle.ListCommandeTitle}" style="margin-top: 0">
                                     <p:dataTable id="datalist" value="#{commandeController.items}" var="item"
-                                                 scrollable="true" scrollHeight="170"
+                                                 scrollable="true" scrollHeight="220"
                                                  resizableColumns="true" style="margin-top: 0"
                                                  >
                                         <p:column  width="50">
@@ -142,7 +142,7 @@
                                             <p:commandButton title="Detail Paiement" icon="fa fa-dollar" actionListener="#{commandeController.findPaiementByCommande(item)}" update=":PaiementCommandeListForm,:CommandeItemListForm,:ReceptionListForm,:ReceptionItemListForm" />
                                             <p:commandButton title="Detail Reception" icon="fa fa-shopping-cart" actionListener="#{commandeController.findReceptionByCommande(item)}" update=":ReceptionListForm,:ReceptionItemListForm,:PaiementCommandeListForm,:CommandeItemListForm" />
                                         </p:column>
-                                        <p:column width="140">
+                                        <p:column width="150">
                                             <f:facet name="header">
                                                 <h:outputText value="Action"/>
                                             </f:facet>
@@ -201,7 +201,7 @@
                             <h:form id="CommandeItemListForm">
                                 <p:panel rendered="#{commandeController.selected.commandeItems.size()>0 and commandeController.booleanSwitch==1}" header="Lignes De commande">
                                     <p:dataTable id="datalist" value="#{commandeController.selected.commandeItems}" var="cItem" 
-                                                 scrollable="true" scrollHeight="170">
+                                                 scrollable="true" scrollHeight="220">
 
                                         <p:column>
                                             <f:facet name="header">

@@ -6,64 +6,161 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDevisDemmandeTitle}"></h:outputText>
+        </ui:define>
 
-        <p:dialog id="DevisDemmandeCreateDlg" widgetVar="DevisDemmandeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDevisDemmandeTitle}">
+        <ui:define  name="body">
+
             <h:form id="DevisDemmandeCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{devisDemmandeController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_userTraceForTransaction}" for="userTraceForTransaction" />
-                        <p:selectOneMenu id="userTraceForTransaction" value="#{devisDemmandeController.selected.userTraceForTransaction}" >
-                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
-                                           var="userTraceForTransactionItem"
-                                           itemValue="#{userTraceForTransactionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_responsable}" for="responsable" />
-                        <p:selectOneMenu id="responsable" value="#{devisDemmandeController.selected.responsable}" >
-                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
-                                           var="responsableItem"
-                                           itemValue="#{responsableItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_tva}" for="tva" />
-                        <p:inputText id="tva" value="#{devisDemmandeController.selected.tva}" title="#{bundle.CreateDevisDemmandeTitle_tva}" />
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_demande}" for="demande" />
-                        <p:selectOneMenu id="demande" value="#{devisDemmandeController.selected.demande}" >
-                            <f:selectItems value="#{demmandeController.itemsAvailableSelectOne}"
-                                           var="demandeItem"
-                                           itemValue="#{demandeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{devisDemmandeController.selected.id}" title="#{bundle.CreateDevisDemmandeTitle_id}" />
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_commentaire}" for="commentaire" />
-                        <p:inputText id="commentaire" value="#{devisDemmandeController.selected.commentaire}" title="#{bundle.CreateDevisDemmandeTitle_commentaire}" />
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_dateDevisDemmande}" for="dateDevisDemmande" />
-                        <p:calendar id="dateDevisDemmande" pattern="MM/dd/yyyy" value="#{devisDemmandeController.selected.dateDevisDemmande}" title="#{bundle.EditDevisDemmandeTitle_dateDevisDemmande}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_montantTotal}" for="montantTotal" />
-                        <p:inputText id="montantTotal" value="#{devisDemmandeController.selected.montantTotal}" title="#{bundle.CreateDevisDemmandeTitle_montantTotal}" />
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_client}" for="client" />
-                        <p:selectOneMenu id="client" value="#{devisDemmandeController.selected.client}" >
-                            <f:selectItems value="#{clientController.itemsAvailableSelectOne}"
-                                           var="clientItem"
-                                           itemValue="#{clientItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_abonne}" for="abonne" />
-                        <p:selectOneMenu id="abonne" value="#{devisDemmandeController.selected.abonne}" >
-                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
-                                           var="abonneItem"
-                                           itemValue="#{abonneItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDevisDemmandeLabel_projet}" for="projet" />
-                        <p:selectOneMenu id="projet" value="#{devisDemmandeController.selected.projet}" >
-                            <f:selectItems value="#{projetController.itemsAvailableSelectOne}"
+                <p:fieldset legend="Infos DevisDemmande" style="  margin-bottom:20px">
+                    <p:panelGrid columns="6" >
+
+                        <p:outputLabel style="display:block;width:80px" value="Commentaire:" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{devisDemmandeController.selected.commentaire}" title="Commentaire" />
+
+                        <p:outputLabel style="display:block;width:40px"  value="Tva:" for="tva" />
+                        <p:inputText id="tva" value="#{devisDemmandeController.selected.tva}" title="Tva" />
+
+                        <p:outputLabel value="Date DevisDemmande" style="display:block;width:160px" for="dateDevisDemmande" />
+                        <p:calendar id="dateDevisDemmande" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{devisDemmandeController.selected.dateDevisDemmande}" title="Date devisDemmande"  showOn="button"/>
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="8">
+
+                        <p:outputLabel style="display:block;width:70px" value="Projet:" for="projet" />
+                        <p:selectOneMenu id="projet" value="#{devisDemmandeController.selected.projet}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{projetController.findProjetByAbonne()}"
                                            var="projetItem"
                                            itemValue="#{projetItem}"/>
                         </p:selectOneMenu>
+
+                        <p:outputLabel style="display:block;width:90px" value="Responsable:" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{devisDemmandeController.selected.responsable}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{responsableController.findByAbonne()}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel style="display:block;width:70px" value="Client" for="client" />
+                        <p:selectOneMenu id="client" value="#{devisDemmandeController.selected.client}" style="display:block;width:100px">
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{clientController.findClientByAbonne()}"
+                                           var="clientItem"
+                                           itemValue="#{clientItem}"/>
+                        </p:selectOneMenu>
+
+
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{devisDemmandeController.create}" value="#{bundle.Save}" update="display,:DevisDemmandeListForm:datalist,:growl" oncomplete="handleSubmit(args,'DevisDemmandeCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DevisDemmandeCreateDialog.hide()"/>
-                </h:panelGroup>
+                </p:fieldset>
+
+                <p:fieldset legend="Infos Ligne de DevisDemmande" style=" margin-bottom:20px">
+                    <p:panelGrid columns="13" >
+
+                        <p:outputLabel value="SuperFamille : " for="superFamille" />
+                        <p:selectOneMenu id="superFamille" value="#{demmandeController.selectedSuperFamille}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{superFamilleController.findSuperFamilleByAbonne(userController.selected.abonne)}"
+                                           var="superFamilleItem"
+                                           itemValue="#{superFamilleItem}" />
+                            <p:ajax process="superFamille" listener="#{demmandeController.findFamilleBySuperFamille(0)}" update="famille" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Famille:" for="famille" />
+                        <p:selectOneMenu id="famille" value="#{demmandeController.selectedFamille}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{demmandeController.familles}"
+                                           var="familleItem"
+                                           itemValue="#{familleItem}" />
+                            <p:ajax process="famille" listener="#{demmandeController.findProduitByFamille(0)}" update="produit" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Produit:" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{devisDemmandeController.selectedProduit}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{demmandeController.produits}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}" itemLabel="#{produitItem.libelle} #{produitItem.uniteMesure.nom}(qte=#{produitItem.qteGlobalStock}) "/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Prix:" for="prix" />
+                        <p:inputText id="prix" value="#{devisDemmandeController.devisDemmandeItem.prix}" title="Prix" />
+
+                        <p:outputLabel value="Qte:" for="qte" />
+                        <p:inputText id="qte" value="#{devisDemmandeController.devisDemmandeItem.qte}" title="Qte" />
+
+                        <p:commandButton value="Valider" actionListener="#{devisDemmandeController.createDevisDemmandeItem()}"
+                                         update=":DevisDemmandeItemListForm:datalist,:growl"/> <!--pourquoi le growl -->
+                        <p:commandButton  value="Finir" actionListener="#{devisDemmandeController.createDevisDemmande()}"
+                                          update=":growl,:DevisDemmandeItemListForm:datalist,:DevisDemmandeCreateForm"/>
+
+
+                    </p:panelGrid>
+                </p:fieldset>   
             </h:form>
-        </p:dialog>
+
+            <p:fieldset legend="List DevisDemmandeItems" style="  margin-bottom:20px">
+                <h:form id="DevisDemmandeItemListForm">
+
+                    <p:dataTable id="datalist" value="#{devisDemmandeController.selected.devisDemmandeItems}" var="item"  >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Produit"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Famille"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.famille.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="SuperFamille"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produit.famille.superFamille.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qte"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qte}"/>
+                        </p:column>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-trash" actionListener="#{devisDemmandeController.deleteDevisDemmandeItem(item)}"
+                                             update=":DevisDemmandeItemListForm:datalist"  style="width:30px;height:20px"/>
+
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <h:outputText value="Montant TotaleDevisDemmande : "/>
+                            <h:outputText id="montantTotal" value="#{devisDemmandeController.selected.montantTotal}"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+            </p:fieldset>
+
+
+
+        </ui:define>
+
+
 
     </ui:composition>
 </html>

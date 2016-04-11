@@ -35,7 +35,7 @@ public class DevisCommande implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDevisCommande;
     private BigDecimal montantTotal;
-    private BigDecimal tva;
+    private BigDecimal tva = new BigDecimal(20);
     @ManyToOne
     private Fournisseur fournisseur;
     @OneToMany(mappedBy = "devisCommande")
@@ -44,14 +44,12 @@ public class DevisCommande implements Serializable {
     private Abonne abonne;
     @ManyToOne
     private Projet projet;
-    @OneToOne
-    private Commande commande;
     @ManyToOne
     private Responsable responsable;
-    
+   
 
 
-    
+  
 
     public Responsable getResponsable() {
         if (responsable == null) {
@@ -154,16 +152,7 @@ public class DevisCommande implements Serializable {
         this.projet = projet;
     }
 
-    public Commande getCommande() {
-        if (commande == null) {
-            commande = new Commande();
-        }
-        return commande;
-    }
-
-    public void setCommande(Commande commande) {
-        this.commande = commande;
-    }
+    
 
     @Override
     public int hashCode() {

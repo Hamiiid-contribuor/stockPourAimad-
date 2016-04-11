@@ -33,10 +33,6 @@ public class Projet implements Serializable {
     private String message;
     @ManyToOne
     private Abonne abonne;
-//    private Double paiement;
-//    private Double effetEnCours;
-//    private Double montant;
-   
 
    
 
@@ -90,30 +86,6 @@ public class Projet implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-//    public Double getPaiement() {
-//        return paiement;
-//    }
-//
-//    public void setPaiement(Double paiement) {
-//        this.paiement = paiement;
-//    }
-//
-//    public Double getEffetEnCours() {
-//        return effetEnCours;
-//    }
-//
-//    public void setEffetEnCours(Double effetEnCours) {
-//        this.effetEnCours = effetEnCours;
-//    }
-//
-//    public Double getMontant() {
-//        return montant;
-//    }
-//
-//    public void setMontant(Double montant) {
-//        this.montant = montant;
-//    }
 
     @Override
     public int hashCode() {

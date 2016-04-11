@@ -48,9 +48,9 @@ public class FournisseurFacade extends AbstractFacade<Fournisseur> {
     public List<Fournisseur> findByAbonne(Abonne abonne, int deleted) {
         if (abonne != null && abonne.getId() != null) {
             String request = "SELECT fr FROM Fournisseur fr WHERE fr.abonne.id=" + abonne.getId();
-//            if (deleted != -1) {
-//                request += " AND fr.supprimer=" + deleted;
-//            }
+            if (deleted != -1) {
+                request += " AND fr.supprimer=" + deleted;
+            }
             System.out.println("downloading Fournisseur ...");
             System.out.println(request);
             return em.createQuery(request).getResultList();

@@ -14,17 +14,20 @@ import javax.persistence.ManyToOne;
  * @author moulaYounes
  */
 @Entity
-public class AchatDirectItem extends ProduitItem {
+public class AchatDirectItem extends ProduitItemWithoutPrix  {
 
+    private static final long serialVersionUID = 1L;
+   
     @ManyToOne
     private AchatDirect achatDirect;
     @ManyToOne
-    private Stock stock;
+    private Stock stock ;
+    private BigDecimal prix;
     private BigDecimal qteAvoir;
 
     public AchatDirect getAchatDirect() {
-        if (achatDirect == null) {
-            achatDirect = new AchatDirect();
+        if(achatDirect==null){
+            achatDirect= new AchatDirect();
         }
         return achatDirect;
     }
@@ -33,9 +36,22 @@ public class AchatDirectItem extends ProduitItem {
         this.achatDirect = achatDirect;
     }
 
+   
+
+    public BigDecimal getPrix() {
+         if(prix==null){
+            prix= new BigDecimal(0);
+        }
+        return prix;
+    }
+
+    public void setPrix(BigDecimal prix) {
+        this.prix = prix;
+    }
+
     public BigDecimal getQteAvoir() {
-        if (qteAvoir == null) {
-            qteAvoir = new BigDecimal(0);
+         if(qteAvoir==null){
+            qteAvoir= new BigDecimal(0);
         }
         return qteAvoir;
     }
@@ -45,8 +61,8 @@ public class AchatDirectItem extends ProduitItem {
     }
 
     public Stock getStock() {
-        if (stock == null) {
-            stock = new Stock();
+         if(stock==null){
+            stock= new Stock();
         }
         return stock;
     }
@@ -54,6 +70,9 @@ public class AchatDirectItem extends ProduitItem {
     public void setStock(Stock stock) {
         this.stock = stock;
     }
+
+
+   
 
     @Override
     public int hashCode() {

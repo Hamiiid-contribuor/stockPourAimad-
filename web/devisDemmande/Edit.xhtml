@@ -12,13 +12,7 @@
             <h:form id="DevisDemmandeEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{devisDemmandeController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_userTraceForTransaction}" for="userTraceForTransaction" />
-                        <p:selectOneMenu id="userTraceForTransaction" value="#{devisDemmandeController.selected.userTraceForTransaction}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{userTraceForTransactionController.itemsAvailableSelectOne}"
-                                           var="userTraceForTransactionItem"
-                                           itemValue="#{userTraceForTransactionItem}"/>
-                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_responsable}" for="responsable" />
                         <p:selectOneMenu id="responsable" value="#{devisDemmandeController.selected.responsable}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -28,21 +22,13 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_tva}" for="tva" />
                         <p:inputText id="tva" value="#{devisDemmandeController.selected.tva}" title="#{bundle.EditDevisDemmandeTitle_tva}" />
-                        <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_demande}" for="demande" />
-                        <p:selectOneMenu id="demande" value="#{devisDemmandeController.selected.demande}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{demmandeController.itemsAvailableSelectOne}"
-                                           var="demandeItem"
-                                           itemValue="#{demandeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{devisDemmandeController.selected.id}" title="#{bundle.EditDevisDemmandeTitle_id}" />
+                       
                         <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_commentaire}" for="commentaire" />
                         <p:inputText id="commentaire" value="#{devisDemmandeController.selected.commentaire}" title="#{bundle.EditDevisDemmandeTitle_commentaire}" />
+                        
                         <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_dateDevisDemmande}" for="dateDevisDemmande" />
                         <p:calendar id="dateDevisDemmande" pattern="MM/dd/yyyy" value="#{devisDemmandeController.selected.dateDevisDemmande}" title="#{bundle.EditDevisDemmandeTitle_dateDevisDemmande}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_montantTotal}" for="montantTotal" />
-                        <p:inputText id="montantTotal" value="#{devisDemmandeController.selected.montantTotal}" title="#{bundle.EditDevisDemmandeTitle_montantTotal}" />
+                       
                         <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_client}" for="client" />
                         <p:selectOneMenu id="client" value="#{devisDemmandeController.selected.client}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -50,13 +36,7 @@
                                            var="clientItem"
                                            itemValue="#{clientItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_abonne}" for="abonne" />
-                        <p:selectOneMenu id="abonne" value="#{devisDemmandeController.selected.abonne}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{abonneController.itemsAvailableSelectOne}"
-                                           var="abonneItem"
-                                           itemValue="#{abonneItem}"/>
-                        </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.EditDevisDemmandeLabel_projet}" for="projet" />
                         <p:selectOneMenu id="projet" value="#{devisDemmandeController.selected.projet}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

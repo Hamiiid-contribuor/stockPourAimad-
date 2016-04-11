@@ -5,13 +5,9 @@
  */
 package bean;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
@@ -19,12 +15,9 @@ import javax.persistence.ManyToOne;
  * @author moulaYounes
  */
 @Entity
-public class Produit implements Serializable {
+public class Produit extends ProduitItem {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
     private String reference;
     private String libelle;
     @ManyToOne
@@ -36,18 +29,16 @@ public class Produit implements Serializable {
     @ManyToOne
     private Famille famille;
     private double seuilAlert;
-    
 
     public Produit() {
     }
 
-  
-
-    public Produit(Long id, String reference, String libelle,String uniteMesureNom ,BigDecimal qteGlobalStock, BigDecimal qteParStock) {
+    public Produit(Long id, String reference, String libelle, String uniteMesureNom, BigDecimal qteGlobalStock, BigDecimal qteParStock) {
         this(id, reference, libelle, uniteMesureNom, qteGlobalStock);
         this.qteParStock = qteParStock;
     }
-      public Produit(Long id, String reference, String libelle,String uniteMesureNom ,BigDecimal qteGlobalStock) {
+
+    public Produit(Long id, String reference, String libelle, String uniteMesureNom, BigDecimal qteGlobalStock) {
         this.id = id;
         this.reference = reference;
         this.libelle = libelle;
@@ -55,10 +46,8 @@ public class Produit implements Serializable {
         this.qteGlobalStock = qteGlobalStock;
     }
 
-   
-
     public BigDecimal getQteParStock() {
-         if (qteParStock == null) {
+        if (qteParStock == null) {
             qteParStock = new BigDecimal(0);
         }
         return qteParStock;
@@ -67,8 +56,6 @@ public class Produit implements Serializable {
     public void setQteParStock(BigDecimal qteParStock) {
         this.qteParStock = qteParStock;
     }
-
-  
 
     public UniteMesure getUniteMesure() {
         if (uniteMesure == null) {
@@ -98,7 +85,7 @@ public class Produit implements Serializable {
     }
 
     public BigDecimal getQteGlobalStock() {
-         if (qteGlobalStock == null) {
+        if (qteGlobalStock == null) {
             qteGlobalStock = new BigDecimal(0);
         }
         return qteGlobalStock;
@@ -136,14 +123,6 @@ public class Produit implements Serializable {
 
     public void setSeuilAlert(double seuilAlert) {
         this.seuilAlert = seuilAlert;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override

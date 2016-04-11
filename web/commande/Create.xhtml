@@ -14,7 +14,7 @@
         <ui:define name="body">
             #{commandeController.prepareCreate()}
             <h:form id="CommandeCreateForm">
-                
+
                 <p:fieldset legend="Infos Commande" style="margin-bottom:20px">
                     <p:panelGrid columns="12">
                         <p:outputLabel value="#{bundle.Reference}" for="refPriffix" style="display:block;width:15px"/>
@@ -34,20 +34,20 @@
                         <p:outputLabel style="display:block;width:40px"  value="#{bundle.CreateCommandeLabel_tva}" for="tva" />
                         <p:inputText id="tva" value="#{commandeController.selected.tva}" title="#{bundle.CreateCommandeTitle_tva}" />
 
-                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
+                        <p:outputLabel style="display:block;width:90px" value="#{bundle.CreateAchatDirectLabel_responsable}" for="responsable" />
                         <p:selectOneMenu id="responsable" value="#{commandeController.selected.responsable}" style="display:block;width:100px">
                             <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
                             <f:selectItems value="#{responsableController.findByAbonne()}"
                                            var="responsableItem"
                                            itemValue="#{responsableItem}"/>
                         </p:selectOneMenu>
-                     
+
                     </p:panelGrid>
                     <p:panelGrid columns="9">
-                        <p:outputLabel style="display:block;width:70px"  value="#{bundle.CreateCommandeLabel_commentaire}" for="commentaire" />
+                        <p:outputLabel style="display:block;width:90px"  value="#{bundle.CreateCommandeLabel_commentaire}" for="commentaire" />
                         <p:inputText id="commentaire" value="#{commandeController.selected.commentaire}" title="#{bundle.CreateCommandeTitle_commentaire}" />
 
-                        <p:outputLabel style="display:block;width:70px" value="#{bundle.CreateCommandeLabel_fournisseur}" for="fournisseur" />
+                        <p:outputLabel style="display:block;width:90px" value="#{bundle.CreateCommandeLabel_fournisseur}" for="fournisseur" />
                         <p:selectOneMenu id="fournisseur" value="#{commandeController.selected.fournisseur}" style="display:block;width:100px">
                             <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
                             <f:selectItems value="#{fournisseurController.findFournisseurByAbonne(userController.selected.abonne,0)}"
@@ -55,17 +55,27 @@
                                            itemValue="#{fournisseurItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.DateCommande}" style="display:block;width:95px" for="dateCommande" />
-                        <p:calendar id="dateCommande" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.selected.dateCommande}" title="#{bundle.DateCommande}"  showOn="button"/>
+                        <p:calendar id="dateCommande" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{commandeController.selected.dateCommande}" title="#{bundle.DateCommande}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.DateEcheance}" style="display:block;width:85px" for="dateEcheance" />
-                        <p:calendar id="dateEcheance" style="display:block;width:190px" pattern="dd/MM/yyyy" value="#{commandeController.selected.dateEchance}" title="#{bundle.DateEcheance}"  showOn="button"/>
+                        <p:calendar id="dateEcheance" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{commandeController.selected.dateEchance}" title="#{bundle.DateEcheance}"  showOn="button"/>
                     </p:panelGrid>
                 </p:fieldset>
                 <p:fieldset legend="Infos Ligne de Commande" style="margin-bottom:20px">
                     <p:panelGrid columns="12">
+
+
+                         <p:outputLabel value="SuperFamille : " for="superFamille" />
+                        <p:selectOneMenu id="superFamille" value="#{commandeController.selectedSuperFamille}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                            <f:selectItems value="#{superFamilleController.findSuperFamilleByAbonne(userController.selected.abonne)}"
+                                           var="superFamilleItem"
+                                           itemValue="#{superFamilleItem}" />
+                            <p:ajax process="superFamille" listener="#{commandeController.findFamilleBySuperFamille(0)}" update="famille" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.Famille}" for="famille" />
                         <p:selectOneMenu id="famille" value="#{commandeController.selectedFamille}" >
                             <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
-                            <f:selectItems value="#{familleController.findFamilleByAbonne(userController.selected.abonne)}"
+                            <f:selectItems value="#{commandeController.familles}"
                                            var="familleItem"
                                            itemValue="#{familleItem}" />
                             <p:ajax process="famille" listener="#{commandeController.findProduitByFamille(0)}" update="produit" />
@@ -128,7 +138,7 @@
                             </f:facet>
                             <h:outputText value="#{item.qte}"/>
                         </p:column>
-                       
+
 
                         <p:column>
                             <f:facet name="header">

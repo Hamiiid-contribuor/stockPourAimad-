@@ -8,21 +8,31 @@
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
+
     <h:body>
-         <p:fieldset legend="Authetification" style="margin:200px">
-        <h:form>
-              <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="username" value="Username:" />
-                <p:inputText id="username" value="#{userController.selected.login}" required="true" label="username" />
-                <h:outputLabel for="password" value="Password:" />
-                <p:password id="password" value="#{userController.selected.password}" required="true" label="password" />
-                <f:facet name="footer">
-                    <p:commandButton value="Login" update="growl" action="#{userController.seConnnecter()}"/>
-                </f:facet>  
-            </h:panelGrid>
-        </h:form>
-         </p:fieldset>
+        <div style="width: 809px ; height: 300px ; margin-left : 250px ; background-image: url(image.jpg); ">
+
+        </div>
+
+            <p:fieldset legend="Authetification" style="margin-top:20px ; width: 800px ; height: 150px ; margin-left : 250px ;">
+
+                <h:form>
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username" value="#{userController.selected.login}" required="true" label="username" />
+
+                        <h:outputLabel for="password" value="Password:" />
+                        <p:password id="password" value="#{userController.selected.password}" required="true" label="password" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Login" update="growl" action="#{userController.seConnnecter()}"/> <!-- on a met action au lieu de actionListner car on veut se rediger vers une autre page -->
+                        </f:facet>  
+                    </h:panelGrid>
+                </h:form>
+            </p:fieldset>
+
     </h:body>
+
 </html>
 

@@ -7,6 +7,7 @@ import bean.Magasin;
 import bean.Produit;
 import bean.Reception;
 import bean.ReceptionItem;
+import bean.SuperFamille;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import controler.util.Message;
@@ -30,7 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import service.CommandeItemFacade;
 import service.PaiementCommandeFacade;
 import service.ReceptionFacade;
 import service.ReceptionItemFacade;
@@ -50,6 +50,8 @@ public class CommandeController implements Serializable {
     private @EJB
     service.ProduitFacade produitFacade;
     private @EJB
+    service.FamilleFacade familleFacade;
+    private @EJB
     ReceptionItemFacade receptionItemFacade;
 
     private List<Commande> items;
@@ -58,6 +60,7 @@ public class CommandeController implements Serializable {
     private CommandeItem commandItem;
     private Produit selectedProduit = new Produit();
     private Famille selectedFamille = new Famille();
+    private SuperFamille selectedSuperFamille = new SuperFamille();
 
     private List<Produit> produits;
     private List<Magasin> magasins;
@@ -234,7 +237,7 @@ public class CommandeController implements Serializable {
         }
     }
 
-    public void createCommande() {
+    public void createCommande(){
         validateView();
         if (message.getResultat() > 0) {
             int resCreate = ejbFacade.createCommande(getSelected(), SessionUtil.getConnectedUser());
@@ -428,6 +431,18 @@ public class CommandeController implements Serializable {
         return selectedFamille;
     }
 
+    public SuperFamille getSelectedSuperFamille() {
+        if (selectedSuperFamille == null ) {
+            selectedSuperFamille = new SuperFamille();
+        }
+        return selectedSuperFamille;
+    }
+
+    public void setSelectedSuperFamille(SuperFamille selectedSuperFamille) {
+        this.selectedSuperFamille = selectedSuperFamille;
+    }
+
+    
     public void setSelectedFamille(Famille selectedFamille) {
         this.selectedFamille = selectedFamille;
     }
@@ -475,7 +490,7 @@ public class CommandeController implements Serializable {
 
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CommandeDeleted"));
         if (!JsfUtil.isValidationFailed()) {
-            selected.getReceptions().clear();
+            selected.getReceptions().clear(); // clear permet de vider la list 
             reception.getReceptionItems().clear();
             items.remove(items.indexOf(selected));
             reception = new Reception();
@@ -620,6 +635,11 @@ public class CommandeController implements Serializable {
 
     public void setMessage(Message message) {
         this.message = message;
+    }
+    
+    
+     public void findFamilleBySuperFamille(int deleted) {
+        familles = familleFacade.findFamilleBySuperFamille(selectedSuperFamille);
     }
 
 }

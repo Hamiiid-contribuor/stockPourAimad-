@@ -5,28 +5,26 @@
  */
 package bean;
 
-
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-
 
 /**
  *
  * @author moulaYounes
  */
 @Entity
-public class PaiementCommande extends Paiement{
+public class PaiementCommande extends Paiement {
 
-   
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private Commande commande;
-   
- 
-   
+    
+
     public Commande getCommande() {
-           if(commande==null){
-            commande= new Commande();
+        if (commande == null) {
+            commande = new Commande();
         }
         return commande;
     }
@@ -34,8 +32,6 @@ public class PaiementCommande extends Paiement{
     public void setCommande(Commande commande) {
         this.commande = commande;
     }
-
-  
 
     @Override
     public int hashCode() {
@@ -58,7 +54,5 @@ public class PaiementCommande extends Paiement{
         }
         return true;
     }
-    
-    
 
 }

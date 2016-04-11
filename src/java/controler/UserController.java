@@ -104,7 +104,7 @@ public class UserController implements Serializable {
 
     private void validteConnexionForm(int res) {
         message = MessageManager.createErrorMessage(res, "");
-        if (res == -1) {
+        if(res == -1){
             message.setText("Abonnement bloqué, Merci de contacter l'éditeur du logiciel");
         } else if (res == -2) {
             message.setText("Compte bloqué, Merci de contacter l'admin");
@@ -122,12 +122,14 @@ public class UserController implements Serializable {
         if (res > 0) {
            // selected.setAbonne(abonneFacade.findByUser(selected));
             int resInitSession = initUserSession(selected, selected.getAbonne());
-            // SessionUtil.registerUser(selected); 
+//             SessionUtil.registerUser(selected); 
             return "/commande/Create";
         }
         validteConnexionForm(res);
         return null;
     }
+    
+    
 
     public User getSelected() {
         if (selected == null) {

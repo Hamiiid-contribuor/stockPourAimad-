@@ -7,6 +7,7 @@ import bean.Famille;
 import bean.Magasin;
 import bean.Produit;
 import bean.Reception;
+import bean.SuperFamille;
 import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -31,7 +32,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import service.DemmandeFacade;
+import service.DemmandeItemFacade;
+import service.FamilleFacade;
+import service.MagasinFacade;
 import service.PaiementDemmandeFacade;
+import service.ProduitFacade;
 import service.ReceptionFacade;
 import service.ReceptionItemFacade;
 
@@ -64,6 +69,7 @@ public class DemmandeController implements Serializable {
     private Produit selectedProduit = new Produit();
     private Magasin selectedMagasin = new Magasin();
     private Famille selectedFamille = new Famille();
+    private SuperFamille selectedSuperFamille = new SuperFamille();
 
     private List<Produit> produits;
     private List<Magasin> magasins;
@@ -166,6 +172,13 @@ public class DemmandeController implements Serializable {
         magasins = magasinFacade.findByAbonne(abonne, deleted);
         return magasins;
     }
+    
+    
+    
+    public void findProduitByFamille(int deleted) {
+        produits = produitFacade.findProduitByFamille(selectedFamille, 0);
+    }
+   
 
     private void constructReference() {
 //        String reference = "";
@@ -202,6 +215,91 @@ public class DemmandeController implements Serializable {
         }
     }
 
+    public DemmandeFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(DemmandeFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public DemmandeItemFacade getDemmandeItemFacade() {
+        return demmandeItemFacade;
+    }
+
+    public void setDemmandeItemFacade(DemmandeItemFacade demmandeItemFacade) {
+        this.demmandeItemFacade = demmandeItemFacade;
+    }
+
+    public ReceptionFacade getReceptionFacade() {
+        return receptionFacade;
+    }
+
+    public void setReceptionFacade(ReceptionFacade receptionFacade) {
+        this.receptionFacade = receptionFacade;
+    }
+
+    public PaiementDemmandeFacade getPaiementDemmandeFacade() {
+        return paiementDemmandeFacade;
+    }
+
+    public void setPaiementDemmandeFacade(PaiementDemmandeFacade paiementDemmandeFacade) {
+        this.paiementDemmandeFacade = paiementDemmandeFacade;
+    }
+
+    public ProduitFacade getProduitFacade() {
+        return produitFacade;
+    }
+
+    public void setProduitFacade(ProduitFacade produitFacade) {
+        this.produitFacade = produitFacade;
+    }
+
+    public MagasinFacade getMagasinFacade() {
+        return magasinFacade;
+    }
+
+    public void setMagasinFacade(MagasinFacade magasinFacade) {
+        this.magasinFacade = magasinFacade;
+    }
+
+    public SuperFamille getSelectedSuperFamille() {
+       if(selectedSuperFamille == null){
+        selectedSuperFamille = new SuperFamille();
+    }
+        return selectedSuperFamille;
+    }
+
+    public void setSelectedSuperFamille(SuperFamille selectedSuperFamille) {
+        this.selectedSuperFamille = selectedSuperFamille;
+    }
+
+    
+    public FamilleFacade getFamilleFacade() {
+        return familleFacade;
+    }
+
+    public void setFamilleFacade(FamilleFacade familleFacade) {
+        this.familleFacade = familleFacade;
+    }
+
+    public ReceptionItemFacade getReceptionItemFacade() {
+        return receptionItemFacade;
+    }
+
+    public void setReceptionItemFacade(ReceptionItemFacade receptionItemFacade) {
+        this.receptionItemFacade = receptionItemFacade;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    
     public void createDemmande(User user) {
 
         validateView();
@@ -632,6 +730,16 @@ public class DemmandeController implements Serializable {
 
     public void setAlertSelected(boolean alertSelected) {
         this.alertSelected = alertSelected;
+    }
+    
+    
+    
+    
+    //************************************hamid*************************
+    
+    
+     public void findFamilleBySuperFamille(int deleted) {
+        familles = familleFacade.findFamilleBySuperFamille(selectedSuperFamille);
     }
 
 }

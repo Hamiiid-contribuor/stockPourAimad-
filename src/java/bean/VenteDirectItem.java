@@ -15,7 +15,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class VenteDirectItem extends ProduitItemWithoutPrix {
 
-   
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private VenteDirect venteDirect;
     private double prix;
@@ -45,8 +46,6 @@ public class VenteDirectItem extends ProduitItemWithoutPrix {
         this.venteDirect = venteDirect;
     }
 
-   
-
     public double getPrix() {
         return prix;
     }
@@ -62,8 +61,6 @@ public class VenteDirectItem extends ProduitItemWithoutPrix {
     public void setQteAvoir(double qteAvoir) {
         this.qteAvoir = qteAvoir;
     }
-
-   
 
     @Override
     public int hashCode() {

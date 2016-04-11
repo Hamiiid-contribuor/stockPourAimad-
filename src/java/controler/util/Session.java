@@ -26,6 +26,8 @@ public class Session {
         }
         return null;
     }
+    
+   
 
     public static int updateAttribute(Object obj, String name) {
         int index = indexOfAttribut(name);

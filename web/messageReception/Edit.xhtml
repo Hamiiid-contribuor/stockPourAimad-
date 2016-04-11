@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageReceptionEditDlg" widgetVar="MessageReceptionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMessageReceptionTitle}">
+            <h:form id="MessageReceptionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageReceptionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMessageReceptionLabel_message}" for="message" />
+                        <p:selectOneMenu id="message" value="#{messageReceptionController.selected.message}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{messageController.itemsAvailableSelectOne}"
+                                           var="messageItem"
+                                           itemValue="#{messageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMessageReceptionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{messageReceptionController.selected.id}" title="#{bundle.EditMessageReceptionTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditMessageReceptionLabel_distinataire}" for="distinataire" />
+                        <p:selectOneMenu id="distinataire" value="#{messageReceptionController.selected.distinataire}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="distinataireItem"
+                                           itemValue="#{distinataireItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMessageReceptionLabel_dateLecture}" for="dateLecture" />
+                        <p:calendar id="dateLecture" pattern="MM/dd/yyyy" value="#{messageReceptionController.selected.dateLecture}" title="#{bundle.EditMessageReceptionTitle_dateLecture}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageReceptionController.update}" value="#{bundle.Save}" update="display,:MessageReceptionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MessageReceptionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageReceptionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

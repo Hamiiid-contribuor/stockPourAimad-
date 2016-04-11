@@ -29,9 +29,25 @@ public class Responsable implements Serializable {
     private String email;
     @ManyToOne
     private Abonne abonne;
-   
+    private boolean modifier;
+    private boolean supprimer;
 
-   
+    public boolean isModifier() {
+        return modifier;
+    }
+
+    public void setModifier(boolean modifier) {
+        this.modifier = modifier;
+    }
+
+    public boolean isSupprimer() {
+        return supprimer;
+    }
+
+    public void setSupprimer(boolean supprimer) {
+        this.supprimer = supprimer;
+    }
+
     public Long getId() {
         return id;
     }

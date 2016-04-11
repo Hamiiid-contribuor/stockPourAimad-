@@ -8,7 +8,6 @@ package bean;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-
 /**
  *
  * @author moulaYounes
@@ -16,10 +15,15 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PaiementAchatDirect extends Paiement {
 
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private AchatDirect achatDirect;
 
     public AchatDirect getAchatDirect() {
+        if (achatDirect == null) {
+            achatDirect = new AchatDirect();
+        }
         return achatDirect;
     }
 

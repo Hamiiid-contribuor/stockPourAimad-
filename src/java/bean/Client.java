@@ -36,8 +36,6 @@ public class Client implements Serializable {
     private Abonne abonne;
     @OneToMany(mappedBy = "client")
     private List<VenteDirect> venteDirects;
-    private boolean modifier;
-    private boolean supprimer;
     private boolean bloquer;
     private String detailBloquage;
 
@@ -55,22 +53,6 @@ public class Client implements Serializable {
 
     public void setDetailBloquage(String detailBloquage) {
         this.detailBloquage = detailBloquage;
-    }
-
-    public boolean isModifier() {
-        return modifier;
-    }
-
-    public void setModifier(boolean modifier) {
-        this.modifier = modifier;
-    }
-
-    public boolean isSupprimer() {
-        return supprimer;
-    }
-
-    public void setSupprimer(boolean supprimer) {
-        this.supprimer = supprimer;
     }
 
     public Abonne getAbonne() {

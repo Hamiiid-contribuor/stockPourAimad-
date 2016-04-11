@@ -16,6 +16,10 @@ import javax.persistence.ManyToOne;
 @Entity
 public class LivraisonItem extends ProduitItemWithoutPrix {
 
+    private static final long serialVersionUID = 1L;
+
+    @ManyToOne
+    private Demmande demande;
 
     private BigDecimal qteAvoir;
     @ManyToOne
@@ -23,7 +27,6 @@ public class LivraisonItem extends ProduitItemWithoutPrix {
     @ManyToOne
     private Livraison livraison;
 
-    
     public Livraison getLivraison() {
         if (livraison == null) {
             livraison = new Livraison();
@@ -57,7 +60,16 @@ public class LivraisonItem extends ProduitItemWithoutPrix {
         this.stock = stock;
     }
 
-    
+    public Demmande getDemande() {
+        if (demande == null) {
+            demande = new Demmande();
+        }
+        return demande;
+    }
+
+    public void setDemande(Demmande demande) {
+        this.demande = demande;
+    }
 
     @Override
     public int hashCode() {

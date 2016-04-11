@@ -175,4 +175,9 @@ public class ClientController implements Serializable {
 
     }
 
+    //**********************************************hamid****************************************
+    public List<Client> findClientByAbonne() {
+        return SessionUtil.getConnectedUser().getAbonne().getClients();
+    }
+
 }

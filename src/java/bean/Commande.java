@@ -22,7 +22,8 @@ import javax.persistence.Temporal;
 @Entity
 public class Commande extends OperationVenteAchat {
 
-    
+    private static final long serialVersionUID = 1L;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCommande;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -44,15 +45,10 @@ public class Commande extends OperationVenteAchat {
     private Responsable responsable;
     @ManyToOne
     private Projet projet;
-   
 
     public Commande() {
 
     }
-
-   
-
-   
 
     public Responsable getResponsable() {
         if (responsable == null) {
@@ -64,8 +60,6 @@ public class Commande extends OperationVenteAchat {
     public void setResponsable(Responsable responsable) {
         this.responsable = responsable;
     }
-
-    
 
     public Projet getProjet() {
         if (projet == null) {
@@ -133,8 +127,6 @@ public class Commande extends OperationVenteAchat {
         this.montantTotalAvoir = montantTotalAvoir;
     }
 
-   
-
     public Date getDateCommande() {
         if (dateCommande == null) {
             dateCommande = new Date();
@@ -156,8 +148,6 @@ public class Commande extends OperationVenteAchat {
     public void setDateEchance(Date dateEchance) {
         this.dateEchance = dateEchance;
     }
-
-   
 
     public int getEtatReception() {
         return etatReception;
@@ -220,5 +210,4 @@ public class Commande extends OperationVenteAchat {
                 + ", projet=" + getProjet().getNom() + '}';
     }
 
-   
 }

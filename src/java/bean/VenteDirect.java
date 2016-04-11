@@ -5,19 +5,12 @@
  */
 package bean;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -27,6 +20,10 @@ import javax.persistence.Temporal;
 @Entity
 public class VenteDirect extends OperationVenteAchat {
 
+    private static final long serialVersionUID = 1L;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateVenteDirect;
     @ManyToOne
     private Client client;
     @OneToMany(mappedBy = "venteDirect")
@@ -62,6 +59,14 @@ public class VenteDirect extends OperationVenteAchat {
 
     public void setResponsable(Responsable responsable) {
         this.responsable = responsable;
+    }
+
+    public Date getDateVenteDirect() {
+        return dateVenteDirect;
+    }
+
+    public void setDateVenteDirect(Date dateVenteDirect) {
+        this.dateVenteDirect = dateVenteDirect;
     }
 
     public Client getClient() {
@@ -117,14 +122,6 @@ public class VenteDirect extends OperationVenteAchat {
 
     public void setProjet(Projet projet) {
         this.projet = projet;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override

@@ -102,20 +102,20 @@
                         <p:submenu label="#{bundle.Factures} / #{bundle.Devis}" icon="#">
 
                             <p:submenu label="#{bundle.Factures}">
-                                <p:menuitem value="#{bundle.Liste}" outcome="/client/List.xhtml" />
-                                <p:menuitem value="#{bundle.Ajout}" outcome="/client/List.xhtml" />
+                                <p:menuitem value="#{bundle.Liste}" outcome="/devisDemmande/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/devisDemmande/Create.xhtml" />
                             </p:submenu>
                             <p:submenu label="#{bundle.Devis}">
-                                <p:menuitem value="#{bundle.Liste}" outcome="/client/List.xhtml" />
-                                <p:menuitem value="#{bundle.Ajout}" outcome="/client/List.xhtml" />
+                                <p:menuitem value="#{bundle.Liste}" outcome="/devisCommande/List.xhtml" />
+                                <p:menuitem value="#{bundle.Ajout}" outcome="/devisCommande/Create.xhtml" />
                             </p:submenu>
 
                         </p:submenu>
 
                         <p:submenu label="#{bundle.Parametre}" icon="#">
 
-                            <p:submenu label="#{bundle.Famille}">
-                                <p:menuitem value="#{bundle.Liste}" outcome="/famille/List.xhtml" />
+                            <p:submenu label="SuperFamille">
+                                <p:menuitem value="#{bundle.Liste}" outcome="/superFamille/List.xhtml" />
                             </p:submenu>
                             <p:submenu label="#{bundle.MesMagazins}">
                                 <p:menuitem value="#{bundle.Liste}" outcome="/magasin/List.xhtml" />
@@ -129,17 +129,20 @@
 
                         </p:submenu>
                         <f:facet name="options">
-                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink"  action="#{userController}"/>
                         </f:facet>
 
                     </p:menubar>
                 </h:form>
+                
                 <ui:insert name="body"/>
             </p:layoutUnit>
 
 
-            <p:layoutUnit position="center">
-
+            <p:layoutUnit position="center" size="10%">
+                <div style="text-align:  center;">
+                    <a href="#" ><p style=" margin-top: 70px ; font-family: cursive; font-size: 17px ; color: #04a6dc;"> All Right Reserved Copyright © 2016, Mr Hamid.</p></a> 
+                </div>
             </p:layoutUnit>
 
         </p:layout>

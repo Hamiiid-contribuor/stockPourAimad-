@@ -15,7 +15,6 @@ import bean.ReceptionItem;
 import bean.User;
 import controler.util.DateUtil;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -189,9 +188,6 @@ public class CommandeFacade extends AbstractFacade<Commande> {
             if (commande.getReference() != null && !commande.getReference().equals("")) {
                 requtte += " and c.reference ='" + commande.getReference() + "'";
             }
-//            if (deleted != -1) {
-//                requtte += " and c.supprimer =" + deleted;
-//            }
             if (isUpdateAction) {
                 requtte += " and c.id <> " + commande.getId();
             }
@@ -207,9 +203,6 @@ public class CommandeFacade extends AbstractFacade<Commande> {
             requtte += " and c.abonne.id =" + abonne.getId();
             if (commande.getReference() != null && !commande.getReference().equals("")) {
                 requtte += " and c.reference ='" + commande.getReference() + "'";
-            }
-            if (deleted != -1) {
-                requtte += " and c.supprimer =" + deleted;
             }
             if (commande.getProjet() != null && commande.getProjet().getId() != null) {
                 requtte += " and c.projet.id=" + commande.getProjet().getId();
@@ -257,7 +250,7 @@ public class CommandeFacade extends AbstractFacade<Commande> {
         em.createNativeQuery("INSERT INTO `commande` (`ID`, `COMMENTAIRE`, `DATECOMMANDE`, `DATEECHANCE`"
                 + ", `MONTANTTOTAL`, `REFERENCE`,`REFERENCESUFFIX`,`REFERENCEPRIFFIX`,`REFERENCEINDEX` ,"
                 + " `TVA`, `ABONNE_ID`, `FOURNISSEUR_ID`, `PROJET_ID`, `RESPONSABLE_ID`,"
-                + " `ETATRECEPTION` , `PAIEMENT`, `PAIEMENTEFFETENCOUR`"
+                + " `ETATRECEPTION`, `PAIEMENT`, `PAIEMENTEFFETENCOUR`"
                 + ", `MONTANTTOTALRECEPTION`, `MONTANTTOTALAVOIR`) "
                 + "VALUES ('" + generateId() + "', '" + commande.getCommentaire() + "' ,'"
                 + simpleDateFormat.format(commande.getDateCommande()) + "',"

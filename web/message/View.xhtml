@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageViewDlg" widgetVar="MessageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMessageTitle}">
+            <h:form id="MessageViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <h:outputText value="Expéditeur"/>
+                        <h:outputText value="#{messageController.seleMessageReception.message.user}" title="#{bundle.ViewMessageTitle_user}"/>
+                        <h:outputText value="Distinataire"/>
+                        <h:outputText value="#{messageController.seleMessageReception.distinataire}" title="#{bundle.ViewMessageTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewMessageLabel_objet}"/>
+                        <h:outputText value="#{messageController.seleMessageReception.message.objet}" title="#{bundle.ViewMessageTitle_objet}"/>
+                        <h:outputText value="#{bundle.ViewMessageLabel_corps}" />
+                        <h:outputText value="#{messageController.seleMessageReception.message.corps}" title="#{bundle.ViewMessageTitle_corps}" escape="false" />
+                        <h:outputText value="#{bundle.ViewMessageLabel_dateEnvoi}" />
+                        <h:outputText value="#{messageController.seleMessageReception.message.dateEnvoi}" title="#{bundle.ViewMessageTitle_dateEnvoi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy : HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="Detail"/>
+                        <h:outputText value="#{messageController.seleMessageReception.detail}" title="#{bundle.ViewMessageTitle_corps}" style="width: 500px;height: 500px"/>
+                        
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MessageViewDialog.hide()" update=":MessageListForm:datalist,:MessageListForm,:growl"/>
+                </h:panelGroup>
+            </h:form>
+            
+
+        </p:dialog>
+    </ui:composition>
+</html> 

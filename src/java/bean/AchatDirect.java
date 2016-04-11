@@ -20,9 +20,10 @@ import javax.persistence.Temporal;
 @Entity
 public class AchatDirect extends OperationVenteAchat {
 
+    private static final long serialVersionUID = 1L;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateAchatDirect;
-
     @ManyToOne
     private Fournisseur fournisseur;
     @OneToMany(mappedBy = "achatDirect")

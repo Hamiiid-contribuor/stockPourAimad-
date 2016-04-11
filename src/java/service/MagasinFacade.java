@@ -37,9 +37,9 @@ public class MagasinFacade extends AbstractFacade<Magasin> {
     public List<Magasin> findByAbonne(Abonne abonne, int deleted) {
         if (abonne != null && abonne.getId() != null) {
             String request = "SELECT mg FROM Magasin mg WHERE mg.abonne.id=" + abonne.getId();
-//            if (deleted != -1) {
-//                request += " and mg.supprimer=" + deleted;
-//            }
+            if (deleted != -1) {
+                request += " and mg.supprimer=" + deleted;
+            }
             System.out.println("Downloading Magasin...");
             System.out.println(request);
             return em.createQuery(request).getResultList();

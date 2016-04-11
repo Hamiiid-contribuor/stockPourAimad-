@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a98843d-e045-44bd-96ea-70c399a0bdd0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dateDevisCommande" class="java.util.Date"/>
+	<parameter name="projet" class="java.lang.String"/>
+	<parameter name="responsable" class="java.lang.String"/>
+	<parameter name="fournisseur" class="java.lang.String"/>
+	<field name="produit.famille.libelle" class="java.lang.String"/>
+	<field name="prix" class="java.math.BigDecimal"/>
+	<field name="qte" class="java.math.BigDecimal"/>
+	<field name="produit.libelle" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="96" y="15" width="100" height="20" uuid="986593e0-8827-4396-84e5-150038829048"/>
+				<textFieldExpression><![CDATA[$P{dateDevisCommande}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="15" width="79" height="20" uuid="39722d2e-2989-4e80-8582-20a84d30cb45"/>
+				<textFieldExpression><![CDATA[Date Du Devis :]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="238" y="0" width="100" height="20" uuid="77bbf10f-d534-4c6f-bf1a-fb2a7387cbbf"/>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="0" width="90" height="20" uuid="47196516-360a-4f40-8649-bc3fc3310f0b"/>
+				<textFieldExpression><![CDATA[$P{projet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="0" width="100" height="20" uuid="cfff91e3-d4fc-467c-8bae-bb51657361d0"/>
+				<textFieldExpression><![CDATA[$P{fournisseur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="0" width="55" height="20" uuid="bd65bc40-5a25-48fb-844a-1a443e148960"/>
+				<textFieldExpression><![CDATA[Projet :]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="0" width="76" height="20" uuid="69ebeba5-d5bf-461a-a65e-fdf0ca8c722b"/>
+				<text><![CDATA[Responsable :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="0" width="67" height="20" uuid="0acf5767-17fc-477d-a084-f6cdf709acba"/>
+				<text><![CDATA[Fournisseur :]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="76" width="138" height="20" uuid="7bdf4726-6f1f-440e-89c8-6d8a7a7d8df2"/>
+				<textFieldExpression><![CDATA[$F{produit.famille.libelle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="76" width="138" height="20" uuid="da94128c-767a-47e9-a121-d7b8dd2eda75"/>
+				<textFieldExpression><![CDATA[$F{produit.libelle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="76" width="138" height="20" uuid="1bc298cf-6f98-466d-917e-57415c4db55f"/>
+				<textFieldExpression><![CDATA[$F{prix}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="76" width="138" height="20" uuid="fa2b8670-5a7b-4fe7-9d8d-8343d31b8829"/>
+				<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="56" width="138" height="20" uuid="04c358b5-a2b9-4176-a936-e936af3c5be0"/>
+				<text><![CDATA[produit.famille.libelle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="56" width="138" height="20" uuid="fa98a6ce-6304-47c7-bca8-b0ff0c2cc080"/>
+				<text><![CDATA[produit.libelle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="56" width="138" height="20" uuid="05fdb65b-a65c-4722-bd20-3bc397af2214"/>
+				<text><![CDATA[prix]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="56" width="138" height="20" uuid="279bb370-538b-468e-8863-301737fc7858"/>
+				<text><![CDATA[qte]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

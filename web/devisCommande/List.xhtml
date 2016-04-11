@@ -10,104 +10,212 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListDevisCommandeTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListDevisDevisCommandeTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="DevisCommandeListForm">
-                <p:panel header="#{bundle.ListDevisCommandeTitle}">
-                    <p:dataTable id="datalist" value="#{devisCommandeController.items}" var="item"
-                                 selectionMode="single" selection="#{devisCommandeController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div class="ui-grid ui-grid-responsive">
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_userTraceForTransaction}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userTraceForTransaction}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_responsable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_tva}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tva}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_commentaire}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.commentaire}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_dateDevisCommande}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateDevisCommande}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_montantTotal}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.montantTotal}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_fournisseur}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fournisseur}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_abonne}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.abonne}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_projet}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.projet}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDevisCommandeTitle_commande}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.commande}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{devisCommandeController.prepareCreate}" update=":DevisCommandeCreateForm" oncomplete="PF('DevisCommandeCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DevisCommandeViewForm" oncomplete="PF('DevisCommandeViewDialog').show()" disabled="#{empty devisCommandeController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DevisCommandeEditForm" oncomplete="PF('DevisCommandeEditDialog').show()" disabled="#{empty devisCommandeController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{devisCommandeController.destroy}" update=":growl,datalist" disabled="#{empty devisCommandeController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <h:form id="RechercheForm">
+                            <p:fieldset legend="Criteres de recherche" style="margin-bottom:20px" toggleable="true" toggleSpeed="500">
+                                <p:panelGrid columns="12">
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                                    <p:outputLabel style="display:block;width:50px" value="Projet:" for="projet" />
+                                    <p:selectOneMenu id="projet" value="#{devisCommandeController.objetRecherche.projet}" style="display:block;width:100px" >
+                                        <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                        <f:selectItems value="#{projetController.findProjetByAbonne()}"
+                                                       var="projetItem"
+                                                       itemValue="#{projetItem}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel style="display:block;width:90px" value="Responsable:" for="responsable" />
+                                    <p:selectOneMenu id="responsable" value="#{devisCommandeController.objetRecherche.responsable}" style="display:block;width:100px">
+                                        <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                        <f:selectItems value="#{responsableController.findByAbonne()}"
+                                                       var="responsableItem"
+                                                       itemValue="#{responsableItem}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel style="display:block;width:70px" value="Fournisseur:" for="fournisseur" />
+                                    <p:selectOneMenu id="fournisseur" value="#{devisCommandeController.objetRecherche.fournisseur}" style="display:block;width:100px">
+                                        <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                        <f:selectItems value="#{fournisseurController.findFournisseurByAbonne(userController.selected.abonne,0)}"
+                                                       var="fournisseurItem"
+                                                       itemValue="#{fournisseurItem}"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+                                <p:panelGrid columns="9">
+
+                                    <p:outputLabel value="DateDevisCommande_Min:" style="display:block;width:170px" for="dateDevisCommandeMin" />
+                                    <p:calendar id="dateDevisCommandeMin" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{devisCommandeController.dateDevisCommandeMin}" title="DateDevisCommande_Min"  showOn="button"/>
+                                    <p:outputLabel value="DateDevisCommande_Max:" style="display:block;width:170px" for="dateDevisCommandeMax" />
+                                    <p:calendar id="dateDevisCommandeMax" style="display:block;width:200px" pattern="dd/MM/yyyy" value="#{devisCommandeController.dateDevisCommandeMax}" title="DateDevisCommande_Max"  showOn="button"/>
+                                    <p:commandButton value="Valider" actionListener="#{devisCommandeController.findByCriteres()}" update=":DevisCommandeListForm:datalist,:DevisCommandeItemListForm" />
+
+                                </p:panelGrid>
+                            </p:fieldset>   
+                        </h:form>
+
+                    </div>
+                </div>
+
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-8">
+                        <h:form id="DevisCommandeListForm">
+                            <p:panel header="#{bundle.ListDevisCommandeTitle}" style="margin-top: 0">
+                                <p:dataTable id="datalist" value="#{devisCommandeController.items}" var="item"
+                                             scrollable="true" scrollHeight="220"
+                                             resizableColumns="true" style="margin-top: 0"
+                                             >
+
+                                    <p:column width="100">
+                                        <f:facet name="header">
+                                            <h:outputText value="Date_Devis"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dateDevisCommande}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column width="100">
+                                        <f:facet name="header">
+                                            <h:outputText value="Projet"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.projet.nom}"/>
+                                    </p:column>
+                                 
+                                    <p:column width="100">
+                                        <f:facet name="header">
+                                            <h:outputText value="Fournisseur"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fournisseur.nom}"/>
+                                    </p:column>
+
+                                    <p:column width="100">
+                                        <f:facet name="header">
+                                            <h:outputText value="MontantTotal"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.montantTotal}"/>
+                                    </p:column>
+
+
+                                    <p:column width="30">
+                                        <f:facet name="header">
+                                            <h:outputText value="Tva"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tva}"/>
+                                    </p:column>
+
+                                    <p:column width="100">
+                                        <f:facet name="header">
+                                            <h:outputText value="Responsable"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.responsable.nom}"/>
+                                    </p:column>
+
+                                    <p:column width="300">
+                                        <f:facet name="header">
+                                            <h:outputText value="Commentaire"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.commentaire}"/>
+                                    </p:column>
+
+                                    <p:column width="50">
+                                        <f:facet name="header">
+                                            <h:outputText value="Detail"/>
+                                        </f:facet>
+                                        <p:commandButton title="Detail Produit" icon="fa-ellipsis-h"  actionListener="#{devisCommandeController.findDevisCommandeItemsByIdDevisCommande(item)}" update=":DevisCommandeItemListForm" />
+                                    </p:column>
+                                    <p:column width="140">
+                                        <f:facet name="header">
+                                            <h:outputText value="Action"/>
+                                        </f:facet>
+
+                                        <p:commandButton title="Update DevisCommande" icon="ui-icon-pencil"  actionListener="#{devisCommandeController.update(item)}" 
+                                                          update=":DevisCommandeEditForm" oncomplete="PF('DevisCommandeEditDialog').show()"/>
+                                        <p:commandButton title="Delete DevisCommande" icon="ui-icon-trash"  actionListener="#{devisCommandeController.destroy(item)}" 
+                                                         update=":growl, :DevisCommandeItemListForm:datalist,
+                                                         :DevisCommandeListForm:datalist">
+                                                    <p:confirm header="Confirmation" message="#{'Voullez vous vraiment supprimer ce DevisCommande'}" icon="ui-icon-alert"/>
+                                            
+                                        </p:commandButton>
+                                        <p:commandButton action="#{devisCommandeController.generatePdf(item)}" ajax="false" title="generate PDF" icon="ui-icon-print"/>
+                                            
+                                      
+                                        <p:confirmDialog global="true">
+                                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                        </p:confirmDialog>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+                    </div>
+
+                    <div class="ui-grid-col-4">
+                        <h:form id="DevisCommandeItemListForm">
+                            <p:panel rendered="#{devisCommandeController.selected.devisCommandeItems.size()>0 and devisCommandeController.booleanSwitch==1}" header="Lignes De DevisDemmande">
+                                <p:dataTable id="datalist" value="#{devisCommandeController.selected.devisCommandeItems}" var="dcItem" 
+                                             scrollable="true" scrollHeight="220">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Famille"/>
+                                        </f:facet>
+                                        <h:outputText value="#{dcItem.produit.famille.libelle}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Produit"/>
+                                        </f:facet>
+                                        <h:outputText value="#{dcItem.produit.libelle}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Prix"/>
+                                        </f:facet>
+                                        <h:outputText value="#{dcItem.prix}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Quantite"/>
+                                        </f:facet>
+                                        <h:outputText value="#{dcItem.qte}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ACTION"/> 
+                                        </f:facet>
+                                        <p:commandButton title="Delete" icon="ui-icon-trash"  actionListener="#{devisCommandeController.removeDevisCommandeItem(dcItem)}" 
+                                                         update=":growl, :DevisCommandeItemListForm:datalist,
+                                                         :DevisCommandeListForm:datalist, :growl">
+                                                    <p:confirm header="Confirmation" message="Voullez vous vraiment supprimé cette ligne de DevisCommande?" icon="ui-icon-alert"/>
+                                        </p:commandButton>
+                                        <p:confirmDialog global="true">
+                                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                        </p:confirmDialog>        
+                                    </p:column>
+
+
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+                        <ui:include src="Edit.xhtml"/>
+
+            <!--            <ui:include src="Create.xhtml"/>
+                        <ui:include src="Edit.xhtml"/>
+                        <ui:include src="View.xhtml"/>-->
         </ui:define>
     </ui:composition>
 

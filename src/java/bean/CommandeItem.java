@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CommandeItem extends ProduitItemWithoutPrix {
 
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private Commande commande;
     private BigDecimal qteRecu;

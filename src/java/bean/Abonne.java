@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -67,6 +66,9 @@ public class Abonne implements Serializable {
     @OneToMany(mappedBy = "abonne")
     private List<Famille> familles;
 
+    @OneToMany(mappedBy = "abonne")
+    private List<SuperFamille> superFamilles;
+
     public List<Famille> getFamilles() {
         if (familles == null) {
             familles = new ArrayList();
@@ -115,6 +117,18 @@ public class Abonne implements Serializable {
     public void setAvance(double avance) {
         this.avance = avance;
     }
+
+    public List<SuperFamille> getSuperFamilles() {
+        if(superFamilles == null ){
+            superFamilles = new ArrayList();
+        }
+        return superFamilles;
+    }
+
+    public void setSuperFamilles(List<SuperFamille> superFamilles) {
+        this.superFamilles = superFamilles;
+    }
+    
 
     public List<Client> getClients() {
         if (clients == null) {
